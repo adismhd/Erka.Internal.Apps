@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- <title>ErkaXpress | {{ $title }}</title> --}}
-    <title>ErkaInternal | </title>
+    <title>ErkaInternal | {{ $title }}</title>
+    {{-- <title>ErkaInternal | </title> --}}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -37,19 +37,19 @@
             <!-- Sidebar  -->
             <nav id="sidebar" class="h-100 " >
                 <div class="sidebar-header">
-                    <h3>ErkaXpress</h3>
+                    <h3>Erka Internal</h3>
                 </div>
                 <div class="mt-4 mx-3">
                     <label>{{ session()->get('UserLoginName')}}</label>
                 </div>
                 <hr>
                 <ul class="list-unstyled ">      
-                    {{-- @foreach (session()->get('MenuList') as $item)    
-                        <li class="@if($title == $item->Name){{ 'active' }}@endif">
-                            <a href="{{ $item->Link }}"><i class="{{ $item->Icon }}"></i> &nbsp; {{ $item->Description }}</a>
+                    @foreach (session()->get('MenuList') as $item)    
+                        <li class="@if($title == $item->Nama){{ 'active' }}@endif">
+                            <a href="{{ $item->Link }}"><i class="{{ $item->Icon }}"></i> &nbsp; {{ $item->Deskripsi }}</a>
                         </li>
-                    @endforeach --}}
-                    <li>
+                    @endforeach
+                    {{-- <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle">Pages</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -63,7 +63,7 @@
                                 <a href="#">Page 3</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
 
                 <div class="m-4" style="position: fixed; bottom: 0; width: 200px">

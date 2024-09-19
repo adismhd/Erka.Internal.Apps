@@ -13,5 +13,7 @@ Route::post('/LoginCheck', [UserController::class, 'Login']);
 
 // ADMIN
 Route::get('/HomeAdmin', function () {
-    return view('admin.home');
+    return view('admin.home', [
+        "title" => "Beranda"
+    ]);
 });

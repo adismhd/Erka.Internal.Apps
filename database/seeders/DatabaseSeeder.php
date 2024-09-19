@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Menu;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,9 +19,32 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@test.com',
-            'role' => 'admin',
+            'role' => 'superadmin',
             'password' => 'admin'
         ]);
         
+        Menu::create([
+            'Nama' => 'Beranda',
+            'Deskripsi' => 'Beranda',
+            'Role' => 'superadmin',
+            'Order' => 1,
+            'Link' => '/HomeAdmin',
+            'Icon' => 'fa-solid fa-house',
+            'Module' => '1',
+            'ParentId' => null,
+            'IsActive' => '1',
+        ]);
+        
+        Menu::create([
+            'Nama' => 'Glosarium',
+            'Deskripsi' => 'Glosarium',
+            'Role' => 'superadmin',
+            'Order' => 2,
+            'Link' => '/HomeAdmin',
+            'Icon' => 'fa-solid fa-table-list',
+            'Module' => '1',
+            'ParentId' => null,
+            'IsActive' => '1',
+        ]);
     }
 }

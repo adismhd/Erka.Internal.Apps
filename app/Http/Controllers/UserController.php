@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Xmenu;
+use App\Models\Menu;
 use Hash;
 use Session;
 use Carbon\Carbon;
@@ -23,28 +23,28 @@ class UserController extends Controller
             ]);
         }
         
-        //$menus = Xmenu::where('class', $user->class)->get();
+        $menus = Menu::where('role', $user->role)->get();
         //dd($menus);
 
         if(!Hash::check($request->Password, $user->password)){
             return view('admin.login', [
                 "title" => "Login",
-                //"menuList" => $menus,
+                "menuList" => $menus,
                 "loginstatus" => "false"
             ]);
         }
-
-        else{
+        else {
             $login = Carbon::now();
             $expired = $login->addDays(1);
             // Session::forget('statusLogin');
             // Session::flush();
             //Session::flash('statusLogin', $expired);
             session(['LoginExpired' => $expired]);
-            //session(['MenuList' => $menus]);
+            session(['MenuList' => $menus]);
             session(['UserLoginName' => $user->name]);
             session(['UserLogin' => $user->id]);
 
+            //dd($menus);
             return redirect('/HomeAdmin');
         }
     }
