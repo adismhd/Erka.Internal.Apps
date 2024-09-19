@@ -73,7 +73,7 @@
             </nav>
 
             <!-- Page Content  -->
-            <div id="content">
+            <div id="content" class="p-3 p-sm-5 p-lg-5">
                 <div>
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
@@ -82,7 +82,6 @@
                 </div>
 
                 @yield('container')
-
             </div>
         </div>
 

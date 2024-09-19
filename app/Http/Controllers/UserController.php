@@ -53,7 +53,7 @@ class UserController extends Controller
         session()->forget(['LoginExpired']); 
         session()->flush();
 
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function GetListAdmin(){
