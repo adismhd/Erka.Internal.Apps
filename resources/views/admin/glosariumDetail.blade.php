@@ -27,24 +27,61 @@
                     <td style="white-space: nowrap;">&nbsp;: {{ $glosariumData->NoTelepon }}</td>
                 </tr>
             </table>
+            <hr />
             <table class="mt-2"  style="width: 100%">
                 <tr>
                     <td style="text-align: right">
-                        <button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalEdit()">Edit</button>
+                        <button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalEdit()">Edit</button>&nbsp;
                     </td>
                 </tr>
             </table>
-            
         </div>
     </div>
 </div>
 
+<div class="card mt-3" style="border-radius: 25px">    
+    <div class="card-body" >
+        <div class="table-responsive" style="border-radius: 15px;">
+            <table class="table table-striped table-sm" style="">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" style="text-align: center">No</th>
+                        {{-- <th scope="col">Code</th> --}}
+                        <th scope="col">Deskripsi</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalTambahAlamat()">Tambah</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($alamatData as $data)
+                        <tr class="" >
+                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                            {{-- <td>{{ $data->CodeId }}</td> --}}
+                            <td>{{ $data->Deskripsi }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Alamat }}</td>
+                            <td style="text-align: center">
+                                <button class="btn btn-sm btn-info" style="border-radius: 15px" onclick="showModalEditAlamat('{{ $data->id }}', '{{ $data->Deskripsi }}', '{{ $data->Alamat }}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="showModalDeleteAlamat('{{ $data->id }}')">Hapus</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger mt-3" style="border-radius: 25px">
+    <a href="#" onclick="showModalHapus()">Hapus Data Customer</a>
+</div>
+
+{{-- Modal Edit --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="mEdit">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="InsertGlosarium" method="post">
+            <form action="/EditGlosarium" method="post">
                 @csrf
-                {{-- <input type="text" value="{{ $NoPesanan }}" name="NoPesanan" hidden /> --}}
+                <input type="text" value="{{ $glosariumData->id }}" name="Id" hidden />
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -66,12 +103,96 @@
                     </div>        
                     <div class="col-md-12 mb-3">
                         <label>No Telepon<i style="color: crimson">*</i></label>
-                        <input type="text" class="form-control" name="NoTelepon" value=" {{ $glosariumData->NoTelepon }}" required>
+                        <input type="text" class="form-control" name="NoTelepon" value="{{ (int)$glosariumData->NoTelepon }}" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Ubah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Tambah Alamat --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mTambahAlamat">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/InsertAlamatGlosarium" method="post">
+                @csrf
+                <input type="text" class="form-control" name="Id" id="idAlamat" hidden>
+                <input type="text" value="{{ $glosariumData->Code }}" name="Code" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Alamat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label>Deskripsi <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" placeholder="Head Office" id="deskripsiAlamat" name="Deskripsi" required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Alamat <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" placeholder="Jakarta Barat" id="detailAlamat" name="Alamat" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Hapus Alamat --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mHapusAlamat">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeleteAlamatGlosarium" method="post">
+                @csrf
+                <input type="text" name="Id" id="idAlamatHapus" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Hapus Glosarium --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mHapus">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeleteGlosarium" method="post">
+                @csrf
+                <input type="text" value="{{ $glosariumData->id }}" name="Id" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                    <b style="color: crimson">Semua data customer dan alamat akan dihapus PERMANEN</b>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </form>            
         </div>
@@ -81,6 +202,41 @@
 <script type="text/javascript">
     function showModalEdit(){
         $('#mEdit').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function showModalHapus(){
+        $('#mHapus').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function showModalTambahAlamat(){
+        $("#idAlamat").val();
+        $("#deskripsiAlamat").val();
+        $("#detailAlamat").val();
+        $('#mTambahAlamat').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function showModalEditAlamat(id, des, alamat){
+        $("#idAlamat").val(id);
+        $("#deskripsiAlamat").val(des);
+        $("#detailAlamat").val(alamat);
+        $('#mTambahAlamat').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function showModalDeleteAlamat(id){
+        $("#idAlamatHapus").val(id);
+        $('#mHapusAlamat').modal({
             show: true,
             backdrop: 'static'
         });

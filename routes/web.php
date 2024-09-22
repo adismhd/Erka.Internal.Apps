@@ -26,11 +26,10 @@ Route::get('/HomeAdmin', function () {
 
 // GLOSARIUM
 Route::get('/Glosarium', [GlosariumController::class, 'GetListData']);
-Route::post('/InsertGlosarium', [GlosariumController::class, 'InsertGlosarium']);
 Route::get('/DetailGlosarium/{id}', [GlosariumController::class, 'GetDetailGlosarium']);
-// Route::get('/DetailGlosarium', function () {
-//     return view('admin.glosariumDetail', [
-//         "title" => "Glosarium"
-//     ]);
-// });
+Route::post('/InsertGlosarium', [GlosariumController::class, 'InsertGlosarium']);
+Route::post('/EditGlosarium', [GlosariumController::class, 'EditGlosarium']);
+Route::post('/DeleteGlosarium', [GlosariumController::class, 'DeleteGlosarium']);
+Route::post('/InsertAlamatGlosarium', [GlosariumController::class, 'InsertAlamatGlosarium']);
+Route::post('/DeleteAlamatGlosarium', [GlosariumController::class, 'DeleteAlamatGlosarium']);
 
