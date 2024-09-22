@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GlosariumController;
+use App\Http\Controllers\ParameterController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -33,3 +34,5 @@ Route::post('/DeleteGlosarium', [GlosariumController::class, 'DeleteGlosarium'])
 Route::post('/InsertAlamatGlosarium', [GlosariumController::class, 'InsertAlamatGlosarium']);
 Route::post('/DeleteAlamatGlosarium', [GlosariumController::class, 'DeleteAlamatGlosarium']);
 
+// PARAMETER
+Route::get('/Parameter', [ParameterController::class, 'GetListData']);

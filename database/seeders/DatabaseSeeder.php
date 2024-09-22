@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Menu;
+use App\Models\Author;
+use App\Models\Perusahaan;
+use App\Models\InstructionNote;
 
 use Illuminate\Database\Seeder;
 
@@ -14,37 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        //Alamat::where('id', $request->Id)->delete();
+        
+        //User::where('email', 'admin@test.com')->delete();
+        User::get()->each->delete();
+        User::factory()->create(['name' => 'Admin User', 'email' => 'admin@test.com', 'role' => 'superadmin', 'password' => 'admin' ]);
+        
+        Menu::get()->each->delete();
+        Menu::create(['Nama' => 'Beranda', 'Deskripsi' => 'Beranda', 'Role' => 'superadmin', 'Order' => 1, 'Link' => '/HomeAdmin', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Glosarium', 'Deskripsi' => 'Glosarium', 'Role' => 'superadmin', 'Order' => 2, 'Link' => '/Glosarium', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Parameter', 'Deskripsi' => 'Parameter', 'Role' => 'superadmin', 'Order' => 10, 'Link' => '/Parameter', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
 
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@test.com',
-            'role' => 'superadmin',
-            'password' => 'admin'
-        ]);
+        Author::get()->each->delete();
+        Author::create(['Nama' => 'Kevin Kunta Adji', 'NoTelepon' => '085930170540', 'Jabatan' => 'Project Manager']);
         
-        Menu::create([
-            'Nama' => 'Beranda',
-            'Deskripsi' => 'Beranda',
-            'Role' => 'superadmin',
-            'Order' => 1,
-            'Link' => '/HomeAdmin',
-            'Icon' => 'fa-solid fa-house',
-            'Module' => '1',
-            'ParentId' => null,
-            'IsActive' => '1',
-        ]);
-        
-        Menu::create([
-            'Nama' => 'Glosarium',
-            'Deskripsi' => 'Glosarium',
-            'Role' => 'superadmin',
-            'Order' => 2,
-            'Link' => '/HomeAdmin',
-            'Icon' => 'fa-solid fa-table-list',
-            'Module' => '1',
-            'ParentId' => null,
-            'IsActive' => '1',
-        ]);
     }
 }
