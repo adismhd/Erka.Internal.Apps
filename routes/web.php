@@ -25,9 +25,12 @@ Route::get('/HomeAdmin', function () {
 });
 
 // GLOSARIUM
-// Route::get('/Glosarium', function () {
-//     return view('admin.glosarium', [
+Route::get('/Glosarium', [GlosariumController::class, 'GetListData']);
+Route::post('/InsertGlosarium', [GlosariumController::class, 'InsertGlosarium']);
+Route::get('/DetailGlosarium/{id}', [GlosariumController::class, 'GetDetailGlosarium']);
+// Route::get('/DetailGlosarium', function () {
+//     return view('admin.glosariumDetail', [
 //         "title" => "Glosarium"
 //     ]);
 // });
-Route::get('/Glosarium', [GlosariumController::class, 'GetListData']);
+

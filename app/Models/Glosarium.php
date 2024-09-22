@@ -10,4 +10,12 @@ class Glosarium extends Model
     use HasFactory;
 
     protected $table = 'tbl_glosariums';
+
+    protected $fillable = [
+        'Code',
+        'Perusahaan',
+        'Pic',
+        'NoTelepon'
+    ];
+
 }
