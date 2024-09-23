@@ -31,5 +31,12 @@ class DatabaseSeeder extends Seeder
         Author::get()->each->delete();
         Author::create(['Nama' => 'Kevin Kunta Adji', 'NoTelepon' => '085930170540', 'Jabatan' => 'Project Manager']);
         
+        Perusahaan::get()->each->delete();
+        Perusahaan::create(['Nama' => 'PT. RIA KUSUMAH BERSAMA', 'Code' => 'RKB-PAK-',  'Deskripsi' => 'Telekomunikasi-IT Support Solution ', 'Alamat' => 'Jl. Saturnus Utara V No.1, Manjahlega, Kec. Rancasari, Kota Bandung, Jawa Barat 40286']);
+        
+        InstructionNote::get()->each->delete();
+        InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The goods that are informed must meet the requested specifications, if conditions occur that allow the goods not to meet the specifications, then please provide a replacement item along with the reason']);
+        InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The price listed is the price with VAT 11%']);
+        
     }
 }

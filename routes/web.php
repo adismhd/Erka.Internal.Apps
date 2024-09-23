@@ -35,4 +35,8 @@ Route::post('/InsertAlamatGlosarium', [GlosariumController::class, 'InsertAlamat
 Route::post('/DeleteAlamatGlosarium', [GlosariumController::class, 'DeleteAlamatGlosarium']);
 
 // PARAMETER
-Route::get('/Parameter', [ParameterController::class, 'GetListData']);
+Route::get('/Parameter', [ParameterController::class, 'GetListParamter']);
+Route::post('/AddAuthor', [ParameterController::class, 'AddAuthor']);
+Route::post('/DeleteAuthor', [ParameterController::class, 'DeleteAuthor']);
+Route::post('/AddPerusahaan', [ParameterController::class, 'AddPerusahaan']);
+Route::post('/DeletePerusahaan', [ParameterController::class, 'DeletePerusahaan']);

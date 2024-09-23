@@ -17,4 +17,10 @@ class Perusahaan extends Model
         'Deskripsi',
         'Alamat'
     ];
+        
+    public function instructionNotes()
+    {
+        return $this->hasMany(InstructionNote::class, 'PerusahaanId', 'Code');
+    }
 }
+

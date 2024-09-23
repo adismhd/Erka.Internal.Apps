@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::create('tbl_perusahaans', function (Blueprint $table) {
             $table->id();
             $table->string('Nama');
-            $table->string('Code');
+            $table->string('Code')->unique();
             $table->string('Deskripsi');
             $table->string('Alamat');
             $table->timestamps();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_glosariums', function (Blueprint $table) {
             $table->id();
-            $table->string('Code');
+            $table->string('Code')->unique();
             $table->string('Perusahaan');
             $table->string('Pic');
             $table->string('NoTelepon');
