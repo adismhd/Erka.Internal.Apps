@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Perusahaan;
+use App\Models\InstructionNote;
 
 class ParameterController extends Controller
 {
@@ -86,6 +87,33 @@ class ParameterController extends Controller
     public function DeletePerusahaan(Request $request)
     {
         $author = Perusahaan::where('id', $request->Id)->delete();
+
+        return back();
+    }
+    
+    public function AddInstruction(Request $request)
+    {
+        $dt = Perusahaan::where('id', $request->Id)->first();
+        //dd($request);
+        if ($dt != null) {
+            InstructionNote::where('id', $request->Id)->update([
+                'PerusahaanId' => $request->Code,
+                'Deskripsi' => $request->Deskripsi
+            ]);
+        }
+        else {
+            InstructionNote::create([
+                'PerusahaanId' => $request->Code,
+                'Deskripsi' => $request->Deskripsi
+            ]);
+        }
+
+        return back();
+    }
+
+    public function DeleteInstruction(Request $request)
+    {
+        InstructionNote::where('id', $request->Id)->delete();
 
         return back();
     }

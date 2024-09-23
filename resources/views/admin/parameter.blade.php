@@ -67,7 +67,7 @@
                             {{-- <td>{{ $data->InstructionNotes }}</td> --}}
                             <td  style="text-align: center">
                                 <button class="btn btn-sm btn-info" style="border-radius: 15px" 
-                                onclick="smPerusahaanEdit('{{ $data->id }}','{{ $data->Nama }}','{{ $data->Code }}','{{ $data->Deskripsi }}', '{{ $data->Alamat }}')">Edit</button>
+                                onclick="smPerusahaanEdit('{{ $data->id }}','{{ $data->Nama }}','{{ $data->Code }}','{{ $data->Deskripsi }}', '{{ $data->Alamat }}', '{{ $data->InstructionNotes }}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" style="border-radius: 15px" 
                                 onclick="smPerusahaanHapus('{{ $data->id }}')">Hapus</button>
                             </td>
@@ -141,7 +141,7 @@
 
 {{-- Modal Perusahaan --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="mPerusahaan">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <form id="AddPerusahaan">
                 @csrf
@@ -169,6 +169,22 @@
                         <label>Alamat <i style="color: crimson">*</i></label>
                         <input type="text" id="iPerusahaanAlamat" class="form-control" placeholder="Jakarta Selatan" name="Alamat" required>
                     </div> 
+                    <div id="iInsNote" class="col-md-12 mb-3">
+                        <label>Instruction Notes <i style="color: crimson">*</i></label>
+                        <table class="table table-striped table-sm" style="">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" style="text-align: center">No</th>
+                                    <th scope="col">Deskripsi</th>
+                                    <th scope="col" style="text-align: center"><a href="#" class="btn btn-sm btn-primary" style="border-radius: 15px" 
+                                        onclick="smInstructionTambah()">Tambah</a></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbInsNote">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -203,12 +219,65 @@
     </div>
 </div>
 
+{{-- Modal Instruction --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mInstruction">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="AddInstruction" method="post">
+                @csrf
+                <input type="text" id="iInstructionId" name="Id" hidden />
+                <input type="text" id="iInstructionCode" name="Code" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Instruction Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label>Deskripsi <i style="color: crimson">*</i></label>
+                        <input type="text" id="iInstructionDeskripsi" class="form-control" placeholder="Deskripsi" name="Deskripsi" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="mInstructionHapus">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeleteInstruction" method="post">
+                @csrf
+                <input type="text" name="Id" id="iInstructionIdDelete" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function smAuthorTambah(){
-        $('#iAuthorId').val();
-        $('#iAuthorNama').val();
-        $('#iAuthorJabatan').val();
-        $('#iAuthorNoTelepon').val();
+        $('#iAuthorId').val("");
+        $('#iAuthorNama').val("");
+        $('#iAuthorJabatan').val("");
+        $('#iAuthorNoTelepon').val("");
         $('#mAuthor').modal({
             show: true,
             backdrop: 'static'
@@ -235,23 +304,44 @@
     }
     
     function smPerusahaanTambah(){
-        $('#iPerusahaanId').val();
-        $('#iPerusahaanCode').val();
-        $('#iPerusahaanNama').val();
-        $('#iPerusahaanDeskripsi').val();
-        $('#iPerusahaanAlamat').val();
+        $('#iPerusahaanId').val("");
+        $('#iPerusahaanCode').val("");
+        $('#iPerusahaanNama').val("");
+        $('#iPerusahaanDeskripsi').val("");
+        $('#iPerusahaanAlamat').val("");
+        $('#iInsNote').hide();
         $('#mPerusahaan').modal({
             show: true,
             backdrop: 'static'
         });
     }
 
-    function smPerusahaanEdit(id, nama, code, des, alamat){
+    function smPerusahaanEdit(id, nama, code, des, alamat, ins){
         $('#iPerusahaanId').val(id);
         $('#iPerusahaanCode').val(code);
         $('#iPerusahaanNama').val(nama);
         $('#iPerusahaanDeskripsi').val(des);
-        $('#iPerusahaanAlamat').val(alamat);
+        $('#iPerusahaanAlamat').val(alamat);     
+
+        $('#iInstructionCode').val(code);
+        $('#iInsNote').show();
+        
+        console.log(ins);
+        let tHtml = "";
+        let seq = 1;
+        let parsedIns = JSON.parse(ins);
+
+        $.each(parsedIns, function(index, item) {
+            let temphtml = "'" + item.id + "','" + item.Deskripsi + "'";
+            tHtml += "<tr><td>" + seq + "</td><td>" +  item.Deskripsi + "</td><td style='white-space: nowrap; text-align: center'>" +
+                '<a href="#" class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="smInstructionEdit('+temphtml+')">Edit</a>&nbsp;' +                
+                '<a href="#" class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="smInstructionHapus('+temphtml+')">Hapus</a>' +
+                "</td></tr>";
+            seq += 1;
+        });
+
+        $("#tbInsNote").html(tHtml);
+
         $('#mPerusahaan').modal({
             show: true,
             backdrop: 'static'
@@ -261,6 +351,38 @@
     function smPerusahaanHapus(id){
         $('#iPerusahaanIdDelete').val(id);
         $('#mPerusahaanHapus').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function smInstructionTambah(){
+        $('#iInstructionId').val("");
+        $('#iInstructionDeskripsi').val("");
+        
+        $('#mPerusahaan').modal("hide");
+        
+        $('#mInstruction').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function smInstructionEdit(id, des){
+        $('#iInstructionId').val(id);
+        $('#iInstructionDeskripsi').val(des);
+        
+        $('#mPerusahaan').modal("hide");
+        
+        $('#mInstruction').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function smInstructionHapus(id, des){
+        $('#iInstructionIdDelete').val(id);
+        $('#mInstructionHapus').modal({
             show: true,
             backdrop: 'static'
         });

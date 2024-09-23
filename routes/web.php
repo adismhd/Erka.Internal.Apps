@@ -40,3 +40,5 @@ Route::post('/AddAuthor', [ParameterController::class, 'AddAuthor']);
 Route::post('/DeleteAuthor', [ParameterController::class, 'DeleteAuthor']);
 Route::post('/AddPerusahaan', [ParameterController::class, 'AddPerusahaan']);
 Route::post('/DeletePerusahaan', [ParameterController::class, 'DeletePerusahaan']);
+Route::post('/AddInstruction', [ParameterController::class, 'AddInstruction']);
+Route::post('/DeleteInstruction', [ParameterController::class, 'DeleteInstruction']);
