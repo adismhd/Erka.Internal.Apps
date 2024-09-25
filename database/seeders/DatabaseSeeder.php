@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\Author;
 use App\Models\Perusahaan;
 use App\Models\InstructionNote;
+use App\Models\Workflow;
 
 use Illuminate\Database\Seeder;
 
@@ -38,5 +39,17 @@ class DatabaseSeeder extends Seeder
         InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The goods that are informed must meet the requested specifications, if conditions occur that allow the goods not to meet the specifications, then please provide a replacement item along with the reason']);
         InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The price listed is the price with VAT 11%']);
         
+        Workflow::get()->each->delete();
+        Workflow::create(['CodeId' => 'ST', 'Deskripsi' => 'Start']);
+        Workflow::create(['CodeId' => 'DG', 'Deskripsi' => 'Document Goods']);
+        Workflow::create(['CodeId' => 'RFQ', 'Deskripsi' => 'Request For Quotation']);
+        Workflow::create(['CodeId' => 'SW', 'Deskripsi' => 'Supplier With']);
+        Workflow::create(['CodeId' => 'PL', 'Deskripsi' => 'Plan']);
+        Workflow::create(['CodeId' => 'OL', 'Deskripsi' => 'Offering Letter']);
+        Workflow::create(['CodeId' => 'PO', 'Deskripsi' => 'Purchase Order']);
+        Workflow::create(['CodeId' => 'PL', 'Deskripsi' => 'Packing List']);
+        Workflow::create(['CodeId' => 'DO', 'Deskripsi' => 'Delivery Order']);
+        Workflow::create(['CodeId' => 'IN', 'Deskripsi' => 'Invoice']);
+        Workflow::create(['CodeId' => 'FN', 'Deskripsi' => 'Final']);
     }
 }

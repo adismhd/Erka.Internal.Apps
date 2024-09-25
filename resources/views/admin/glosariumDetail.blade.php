@@ -8,33 +8,23 @@
 
 <div class="card mt-3" style="border-radius: 25px">    
     <div class="card-body" >
-        <div class="table-responsive" style="border-radius: 15px;">
-            <table style="width: 100%">
-                <tr>
-                    <td style="width: 10%">Code</td>
-                    <td style="white-space: nowrap;">&nbsp;: {{ $glosariumData->Code }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 10%">Perusahaan</td>
-                    <td style="white-space: nowrap;">&nbsp;: {{ $glosariumData->Perusahaan }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 10%">Pic</td>
-                    <td style="white-space: nowrap;">&nbsp;: {{ $glosariumData->Pic }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 10%">No Telepon</td>
-                    <td style="white-space: nowrap;">&nbsp;: {{ $glosariumData->NoTelepon }}</td>
-                </tr>
-            </table>
-            <hr />
-            <table class="mt-2"  style="width: 100%">
-                <tr>
-                    <td style="text-align: right">
-                        <button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalEdit()">Edit</button>&nbsp;
-                    </td>
-                </tr>
-            </table>
+        <div class="row" style="font-size: 1.5rem">
+            <div class="col-md-2">
+                <table style="width: 100%"><tr><td>Code</td><td style="text-align: right;">:</td></tr></table>
+            </div>
+            <div class="col-md-10">{{ $glosariumData->Code }}</div>
+        </div>
+        <div class="row" style="font-size: 1.5rem;">
+            <div class="col-md-2">
+                <table style="width: 100%"><tr><td>Perusahaan</td><td style="text-align: right">:</td></tr></table>
+            </div>
+            <div class="col-md-10">{{ $glosariumData->Perusahaan }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"  style="text-align: right">
+                <hr>
+                <button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalEdit()">Edit</button>&nbsp;
+            </div>
         </div>
     </div>
 </div>
@@ -71,6 +61,37 @@
     </div>
 </div>
 
+<div class="card mt-3" style="border-radius: 25px">    
+    <div class="card-body" >
+        <div class="table-responsive" style="border-radius: 15px;">
+            <table class="table table-striped table-sm" style="">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" style="text-align: center">No</th>
+                        <th scope="col">Nama Pic</th>
+                        <th scope="col">No Telepon</th>
+                        <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalTambahPic()">Tambah</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($picData as $data)
+                        <tr class="" >
+                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                            {{-- <td>{{ $data->CodeId }}</td> --}}
+                            <td>{{ $data->Nama }}</td>
+                            <td>{{ $data->NoTelepon }}</td>
+                            <td style="text-align: center">
+                                <button class="btn btn-sm btn-info" style="border-radius: 15px" onclick="showModalEditPic('{{ $data->id }}', '{{ $data->Nama }}', '{{ $data->NoTelepon }}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="showModalDeletePic('{{ $data->id }}')">Hapus</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="alert alert-danger mt-3" style="border-radius: 25px">
     <a href="#" onclick="showModalHapus()">Hapus Data Customer</a>
 </div>
@@ -96,14 +117,6 @@
                     <div class="col-md-12 mb-3">
                         <label>Perusahaan <i style="color: crimson">*</i></label>
                         <input type="text" class="form-control" placeholder="PT. Nama Perusahaan" name="Perusahaan" value=" {{ $glosariumData->Perusahaan }}"  required>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label>PIC <i style="color: crimson">*</i></label>
-                        <input type="text" class="form-control" placeholder="Nama" name="Pic" value=" {{ $glosariumData->Pic }}"  required>
-                    </div>        
-                    <div class="col-md-12 mb-3">
-                        <label>No Telepon<i style="color: crimson">*</i></label>
-                        <input type="text" class="form-control" name="NoTelepon" value="{{ (int)$glosariumData->NoTelepon }}" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -155,6 +168,64 @@
             <form action="/DeleteAlamatGlosarium" method="post">
                 @csrf
                 <input type="text" name="Id" id="idAlamatHapus" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Tambah PIC --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mTambahPic">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/InsertPicGlosarium" method="post">
+                @csrf
+                <input type="text" class="form-control" name="Id" id="idPic" hidden>
+                <input type="text" value="{{ $glosariumData->Code }}" name="Code" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Data PIC</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label>Nama PIC <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" placeholder="Nama" id="picNama" name="Nama" required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>No Telepon <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" placeholder="+62 081xxxxxx" id="picNoTlp" name="NoTelepon" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Hapus PIC --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mHapusPic">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeletePicGlosarium" method="post">
+                @csrf
+                <input type="text" name="Id" id="idPicHapus" hidden />
                 <div class="modal-header">
                     <h5 class="modal-title">Hapus Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -237,6 +308,34 @@
     function showModalDeleteAlamat(id){
         $("#idAlamatHapus").val(id);
         $('#mHapusAlamat').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function showModalTambahPic(){
+        $("#idPic").val();
+        $("#picNama").val();
+        $("#picNoTlp").val();
+        $('#mTambahPic').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function showModalEditPic(id, des, alamat){
+        $("#idPic").val(id);
+        $("#picNama").val(des);
+        $("#picNoTlp").val(alamat);
+        $('#mTambahPic').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function showModalDeletePic(id){
+        $("#idPicHapus").val(id);
+        $('#mHapusPic').modal({
             show: true,
             backdrop: 'static'
         });

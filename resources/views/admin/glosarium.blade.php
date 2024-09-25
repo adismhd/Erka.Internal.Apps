@@ -15,8 +15,6 @@
                         <th scope="col" style="text-align: center">No</th>
                         <th scope="col">Code</th>
                         <th scope="col">Perusahaan</th>
-                        <th scope="col">Pic</th>
-                        <th scope="col">NoTelepon</th>
                         <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalTambah()">Tambah</button></th>
                     </tr>
                 </thead>
@@ -26,8 +24,6 @@
                             <td style="text-align: center">{{ $loop->iteration }}</td>
                             <td>{{ $data->Code }}</td>
                             <td>{{ $data->Perusahaan }}</td>
-                            <td>{{ $data->Pic }}</td>
-                            <td>{{ $data->NoTelepon }}</td>
                             <td  style="text-align: center"><a href="DetailGlosarium/{{ $data->Code }}" class="btn btn-sm btn-info"  style="border-radius: 15px" >Detail</a></td>
                         </tr>
                     @endforeach
@@ -58,20 +54,6 @@
                         <label>Perusahaan <i style="color: crimson">*</i></label>
                         <input type="text" class="form-control" placeholder="PT. Nama Perusahaan" name="Perusahaan" required>
                     </div>
-                    <div class="col-md-12 mb-3">
-                        <label>PIC <i style="color: crimson">*</i></label>
-                        <input type="text" class="form-control" placeholder="Nama" name="Pic" required>
-                    </div>        
-                    <div class="col-md-12 mb-3">
-                        <label>No Telepon<i style="color: crimson">*</i></label>
-                        <input type="number" class="form-control" placeholder="085xxxxxx" name="NoTelepon" required>
-                    </div>        
-                    {{-- <div class="col-md-12">
-                        <label>Alamat<i style="color: crimson">*</i></label>
-                        <input type="number" class="form-control mt-1" placeholder="085xxxxxx" name="NoTelepon" required>
-                        <textarea id="address" name="address[]" rows="3" required></textarea>
-                        <button type="button" id="add-address">Tambah Alamat</button>
-                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Tambah</button>
@@ -89,15 +71,5 @@
             backdrop: 'static'
         });
     }
-
-    $(document).ready(function() {
-        // Tambahkan kolom alamat baru
-        $("#add-address").click(function() {
-            const newAddressField = $("<textarea>")
-                .attr("name", "address[]")
-                .attr("rows", 3);
-            $("#address").append(newAddressField);
-        });
-    });
 </script>    
 @endsection

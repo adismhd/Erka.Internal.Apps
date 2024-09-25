@@ -65,7 +65,7 @@
                             <td>{{ $data->Deskripsi }}</td>
                             <td>{{ $data->Alamat }}</td>
                             {{-- <td>{{ $data->InstructionNotes }}</td> --}}
-                            <td  style="text-align: center">
+                            <td  style="text-align: center; white-space: nowrap;">
                                 <button class="btn btn-sm btn-info" style="border-radius: 15px" 
                                 onclick="smPerusahaanEdit('{{ $data->id }}','{{ $data->Nama }}','{{ $data->Code }}','{{ $data->Deskripsi }}', '{{ $data->Alamat }}', '{{ $data->InstructionNotes }}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" style="border-radius: 15px" 

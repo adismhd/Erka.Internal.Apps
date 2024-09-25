@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Glosarium;
+use App\Models\Customers;
 use App\Models\Alamat;
+use App\Models\PicCustomers;
 
 class GlosariumController extends Controller
 {
     public function GetListData()
     {
-        $glosarium = Glosarium::orderBy('created_at', 'DESC')->get();
+        $glosarium = Customers::orderBy('created_at', 'DESC')->get();
 
         return view('admin.glosarium', [
             "title" => "Glosarium",
@@ -21,23 +22,23 @@ class GlosariumController extends Controller
 
     public function GetDetailGlosarium($id)
     {
-        $glosarium = Glosarium::where('Code', $id)->first();
+        $glosarium = Customers::where('Code', $id)->first();
         $alamat = Alamat::where('CodeId', $glosarium->Code)->get();
+        $pic = PicCustomers::where('CodeId', $glosarium->Code)->get();
 
         return view('admin.glosariumDetail', [
             "title" => "Glosarium",
             "glosariumData" => $glosarium,
+            "picData" => $pic,
             "alamatData" => $alamat
         ]);
     }
 
     public function InsertGlosarium(Request $request)
     {
-        Glosarium::create([
+        Customers::create([
             'Code' => $request-> Code,
-            'Perusahaan' => $request->Perusahaan,
-            'Pic' => $request->Pic,
-            'NoTelepon' => $request->NoTelepon
+            'Perusahaan' => $request->Perusahaan
         ]);
 
         return redirect('/DetailGlosarium/'.$request->Code);
@@ -45,24 +46,25 @@ class GlosariumController extends Controller
 
     public function DeleteGlosarium(Request $request)
     {
-        $glosariumLama = Glosarium::where('Id',$request->Id)->delete();
+        $glosariumLama = Customers::where('Id',$request->Id)->delete();
         
         return redirect('/Glosarium');
     }
 
     public function EditGlosarium(Request $request)
     {
-        $glosariumLama = Glosarium::where('Id',$request->Id)->first();
+        $glosariumLama = Customers::where('Id',$request->Id)->first();
         Alamat::where('CodeId', $glosariumLama->Code)->update([
             'CodeId' => $request->Code
         ]);
-        
+        PicCustomers::where('CodeId', $glosariumLama->Code)->update([
+            'CodeId' => $request->Code
+        ]);
+                
         //dd($request->Id);
-        Glosarium::where('Id',$request->Id)->update([
+        Customers::where('Id',$request->Id)->update([
             'Code' => $request-> Code,
-            'Perusahaan' => $request->Perusahaan,
-            'Pic' => $request->Pic,
-            'NoTelepon' => $request->NoTelepon
+            'Perusahaan' => $request->Perusahaan
         ]);
 
         return redirect('/DetailGlosarium/'.$request->Code);
@@ -92,6 +94,35 @@ class GlosariumController extends Controller
     }
 
     public function DeleteAlamatGlosarium(Request $request)
+    { 
+        Alamat::where('id', $request->Id)->delete();
+        
+        return back();
+    }
+
+    public function InsertPicGlosarium(Request $request)
+    {
+        //dd($request->Id);
+        if($request->Id == null){
+            PicCustomers::create([
+                'CodeId' => $request->Code,
+                'Nama' => $request->Nama,
+                'NoTelepon' => $request->NoTelepon
+            ]);
+        }
+        else{
+            PicCustomers::where('id', $request->Id)->update([
+                'CodeId' => $request->Code,
+                'Nama' => $request->Nama,
+                'NoTelepon' => $request->NoTelepon
+            ]);    
+        }
+
+        return back();
+        //return redirect('/DetailGlosarium/'.$request->Code);
+    }
+
+    public function DeletePicGlosarium(Request $request)
     { 
         Alamat::where('id', $request->Id)->delete();
         

@@ -33,6 +33,8 @@ Route::post('/EditGlosarium', [GlosariumController::class, 'EditGlosarium']);
 Route::post('/DeleteGlosarium', [GlosariumController::class, 'DeleteGlosarium']);
 Route::post('/InsertAlamatGlosarium', [GlosariumController::class, 'InsertAlamatGlosarium']);
 Route::post('/DeleteAlamatGlosarium', [GlosariumController::class, 'DeleteAlamatGlosarium']);
+Route::post('/InsertPicGlosarium', [GlosariumController::class, 'InsertPicGlosarium']);
+Route::post('/DeletePicGlosarium', [GlosariumController::class, 'DeletePicGlosarium']);
 
 // PARAMETER
 Route::get('/Parameter', [ParameterController::class, 'GetListParamter']);
