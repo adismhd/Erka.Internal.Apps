@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         Menu::get()->each->delete();
         Menu::create(['Nama' => 'Beranda', 'Deskripsi' => 'Beranda', 'Role' => 'superadmin', 'Order' => 1, 'Link' => '/HomeAdmin', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
         Menu::create(['Nama' => 'Glosarium', 'Deskripsi' => 'Glosarium', 'Role' => 'superadmin', 'Order' => 2, 'Link' => '/Glosarium', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Document Goods', 'Deskripsi' => 'DocumentGoods', 'Role' => 'superadmin', 'Order' => 3, 'Link' => '/DocumentGoods', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
         Menu::create(['Nama' => 'Parameter', 'Deskripsi' => 'Parameter', 'Role' => 'superadmin', 'Order' => 10, 'Link' => '/Parameter', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
 
         Author::get()->each->delete();

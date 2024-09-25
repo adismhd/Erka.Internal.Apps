@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customers;
 use App\Models\Alamat;
-use App\Models\PicCustomers;
+use App\Models\PicCustomer;
 
 class GlosariumController extends Controller
 {
@@ -24,7 +24,7 @@ class GlosariumController extends Controller
     {
         $glosarium = Customers::where('Code', $id)->first();
         $alamat = Alamat::where('CodeId', $glosarium->Code)->get();
-        $pic = PicCustomers::where('CodeId', $glosarium->Code)->get();
+        $pic = PicCustomer::where('CodeId', $glosarium->Code)->get();
 
         return view('admin.glosariumDetail', [
             "title" => "Glosarium",
@@ -57,7 +57,7 @@ class GlosariumController extends Controller
         Alamat::where('CodeId', $glosariumLama->Code)->update([
             'CodeId' => $request->Code
         ]);
-        PicCustomers::where('CodeId', $glosariumLama->Code)->update([
+        PicCustomer::where('CodeId', $glosariumLama->Code)->update([
             'CodeId' => $request->Code
         ]);
                 
@@ -104,14 +104,14 @@ class GlosariumController extends Controller
     {
         //dd($request->Id);
         if($request->Id == null){
-            PicCustomers::create([
+            PicCustomer::create([
                 'CodeId' => $request->Code,
                 'Nama' => $request->Nama,
                 'NoTelepon' => $request->NoTelepon
             ]);
         }
         else{
-            PicCustomers::where('id', $request->Id)->update([
+            PicCustomer::where('id', $request->Id)->update([
                 'CodeId' => $request->Code,
                 'Nama' => $request->Nama,
                 'NoTelepon' => $request->NoTelepon

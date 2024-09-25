@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GlosariumController;
 use App\Http\Controllers\ParameterController;
+use App\Http\Controllers\DocumentGoodsController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -44,3 +45,7 @@ Route::post('/AddPerusahaan', [ParameterController::class, 'AddPerusahaan']);
 Route::post('/DeletePerusahaan', [ParameterController::class, 'DeletePerusahaan']);
 Route::post('/AddInstruction', [ParameterController::class, 'AddInstruction']);
 Route::post('/DeleteInstruction', [ParameterController::class, 'DeleteInstruction']);
+
+//DOCUMENT GOODS
+Route::get('/DocumentGoods', [DocumentGoodsController::class, 'GetListData']);
+
