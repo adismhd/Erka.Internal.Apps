@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('CodeId');
             $table->string('Nama');
             $table->string('NoTelepon');
+            $table->string('Keterangan')->nullable();
             $table->timestamps();
         });
     }

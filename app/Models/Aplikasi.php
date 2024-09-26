@@ -20,9 +20,13 @@ class Aplikasi extends Model
     {
         return $this->hasOne(WorkflowApplication::class, 'Regno', 'Regno');
     }
+    public function WorkflowHistory()
+    {
+        return $this->hasOne(WorkflowHistory::class, 'Regno', 'Regno');
+    }
     public function DocumentGood()
     {
-        return $this->hasOne(DocumentGood::class, 'Regno', 'Regno');
+        return $this->hasOne(DocumentGoods::class, 'Regno', 'Regno');
     }
     public function Author()
     {

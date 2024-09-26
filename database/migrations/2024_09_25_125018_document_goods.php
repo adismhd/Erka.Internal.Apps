@@ -22,12 +22,12 @@ return new class extends Migration
         Schema::create('tbl_document_goods', function (Blueprint $table) {
             $table->id();
             $table->string('Regno');
-            $table->string('PicCustomerId');
-            $table->string('PicRecipientId');
-            $table->string('AlamatInvoiceId');
-            $table->string('AlamatDeliveryId');
-            $table->string('EstimasiTime');
-            $table->string('EstimasiDate');
+            $table->string('PicCustomerId')->nullable();
+            $table->string('PicRecipientId')->nullable();
+            $table->string('AlamatInvoiceId')->nullable();
+            $table->string('AlamatDeliveryId')->nullable();
+            $table->string('EstimasiTime')->nullable();
+            $table->string('EstimasiDate')->nullable();
             $table->timestamps();
         });
 

@@ -14,6 +14,7 @@ class PicCustomer extends Model
     protected $fillable = [
         'CodeId',
         'Nama',
-        'NoTelepon'
+        'NoTelepon',
+        'Keterangan'
     ];
 }

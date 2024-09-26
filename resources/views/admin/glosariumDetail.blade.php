@@ -70,6 +70,7 @@
                         <th scope="col" style="text-align: center">No</th>
                         <th scope="col">Nama Pic</th>
                         <th scope="col">No Telepon</th>
+                        <th scope="col">Keterangan</th>
                         <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalTambahPic()">Tambah</button></th>
                     </tr>
                 </thead>
@@ -80,8 +81,9 @@
                             {{-- <td>{{ $data->CodeId }}</td> --}}
                             <td>{{ $data->Nama }}</td>
                             <td>{{ $data->NoTelepon }}</td>
+                            <td>{{ $data->Keterangan }}</td>
                             <td style="text-align: center">
-                                <button class="btn btn-sm btn-info" style="border-radius: 15px" onclick="showModalEditPic('{{ $data->id }}', '{{ $data->Nama }}', '{{ $data->NoTelepon }}')">Edit</button>
+                                <button class="btn btn-sm btn-info" style="border-radius: 15px" onclick="showModalEditPic('{{ $data->id }}', '{{ $data->Nama }}', '{{ $data->NoTelepon }}', '{{ $data->Keterangan }}')">Edit</button>
                                 <button class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="showModalDeletePic('{{ $data->id }}')">Hapus</button>
                             </td>
                         </tr>
@@ -209,6 +211,10 @@
                         <label>No Telepon <i style="color: crimson">*</i></label>
                         <input type="text" class="form-control" placeholder="+62 081xxxxxx" id="picNoTlp" name="NoTelepon" required>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Keterangan <i style="color: crimson">*</i></label>
+                        <textarea type="text" class="form-control" name="NoKeterangan" required></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -317,16 +323,18 @@
         $("#idPic").val();
         $("#picNama").val();
         $("#picNoTlp").val();
+        $("#picKeterangan").val();
         $('#mTambahPic').modal({
             show: true,
             backdrop: 'static'
         });
     }
     
-    function showModalEditPic(id, des, alamat){
+    function showModalEditPic(id, des, tlp, alamat){
         $("#idPic").val(id);
         $("#picNama").val(des);
         $("#picNoTlp").val(alamat);
+        $("#picKeterangan").val(alamat);
         $('#mTambahPic').modal({
             show: true,
             backdrop: 'static'

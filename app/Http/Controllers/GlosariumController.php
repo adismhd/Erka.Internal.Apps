@@ -107,14 +107,16 @@ class GlosariumController extends Controller
             PicCustomer::create([
                 'CodeId' => $request->Code,
                 'Nama' => $request->Nama,
-                'NoTelepon' => $request->NoTelepon
+                'NoTelepon' => $request->NoTelepon,
+                'Keterangan' => $request->Keterangan
             ]);
         }
         else{
             PicCustomer::where('id', $request->Id)->update([
                 'CodeId' => $request->Code,
                 'Nama' => $request->Nama,
-                'NoTelepon' => $request->NoTelepon
+                'NoTelepon' => $request->NoTelepon,
+                'Keterangan' => $request->Keterangan
             ]);    
         }
 
