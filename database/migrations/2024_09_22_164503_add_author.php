@@ -23,8 +23,9 @@ return new class extends Migration
             $table->id();
             $table->string('Nama');
             $table->string('Code')->unique();
-            $table->string('Deskripsi');
-            $table->string('Alamat');
+            $table->string('Logo')->nullable();
+            $table->string('Deskripsi')->nullable();
+            $table->string('Alamat')->nullable();
             $table->timestamps();
         });
 

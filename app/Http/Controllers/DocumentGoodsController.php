@@ -10,6 +10,7 @@ use App\Models\Author;
 use App\Models\DocumentGoods;
 use App\Models\WorkflowApplication;
 use App\Models\WorkflowHistory;
+use Carbon\Carbon;
 
 class DocumentGoodsController extends Controller
 {
@@ -27,7 +28,7 @@ class DocumentGoodsController extends Controller
         $authorList = Author::get();
             
         return view('admin.documentGoods', [
-            "title" => "Document Goods",
+            "title" => "DocumentGoods",
             "inboxList" => $aplikasis,
             "authorList" => $authorList,
             "perusahaanList" => $perusahaanList
@@ -36,8 +37,10 @@ class DocumentGoodsController extends Controller
     
     public function InsertDocumentGoods(Request $request)
     {
-        $todayCount = Aplikasi::whereDate('created_at', Carbon::today())->count();
-        $prefix = $request->Perusahaan;
+        //dd($request->PerusahaanData);
+
+        $todayCount = Aplikasi::whereDate('created_at', Carbon::today())->count() + 1;
+        $prefix = $request->PerusahaanData;
         $month = date('m');
         $year = date('Y');
         $number = str_pad($todayCount, 5, '0', STR_PAD_LEFT);
@@ -45,7 +48,7 @@ class DocumentGoodsController extends Controller
 
         Aplikasi::create([
             'Regno' => $regno,
-            'CustomerId' => $request->Perusahaan,
+            'CustomerId' => $request->PerusahaanData,
             'AuthorId' => $request->Author
         ]);
 
@@ -70,20 +73,20 @@ class DocumentGoodsController extends Controller
         ]);
         
 
-        return redirect('/DetailDocumentGoods/'.$request->Code);
+        return redirect('/DetailDocumentGoods/'.$regno);
     }
     
     public function DetailDocumentGoods($id)
     {
-        $glosarium = Customers::where('Code', $id)->first();
-        $alamat = Alamat::where('CodeId', $glosarium->Code)->get();
-        $pic = PicCustomer::where('CodeId', $glosarium->Code)->get();
+        $aplikasi = Aplikasi::where('Regno', $id)->first();
+        $dg = DocumentGoods::where('Regno', $id)->first();
+        $authorList = Author::get();
 
-        return view('admin.glosariumDetail', [
-            "title" => "Glosarium",
-            "glosariumData" => $glosarium,
-            "picData" => $pic,
-            "alamatData" => $alamat
+        return view('admin.documentGoodsDetail', [
+            "title" => "DocumentGoods",
+            "aplikasiData" => $aplikasi,
+            "dgData" => $dg,
+            "authorList" => $authorList
         ]);
     }
 

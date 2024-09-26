@@ -42,7 +42,6 @@
         <div class="modal-content">
             <form action="InsertDocumentGoods" method="post">
                 @csrf
-                {{-- <input type="text" value="{{ $NoPesanan }}" name="NoPesanan" hidden /> --}}
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -60,9 +59,9 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Perusahaan <i style="color: crimson">*</i></label>
-                        <select class="form-select form-control" name="Perusahaan" id="sAuthor">
+                        <select class="form-select form-control" name="PerusahaanData" id="sPerusahaan">
                             @foreach ($perusahaanList as $data)
-                                <option value="{{ $data->code }}">{{ $data->Nama }}</option>
+                                <option value="{{ $data->Code }}">{{ $data->Perusahaan }}</option>
                             @endforeach
                         </select>
                     </div>

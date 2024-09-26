@@ -48,6 +48,6 @@ Route::post('/DeleteInstruction', [ParameterController::class, 'DeleteInstructio
 
 //DOCUMENT GOODS
 Route::get('/DocumentGoods', [DocumentGoodsController::class, 'GetListData']);
-Route::get('/DetailDocumentGoods/{id}', [DocumentGoodsController::class, 'GetDetailData']);
+Route::get('/DetailDocumentGoods/{id}', [DocumentGoodsController::class, 'DetailDocumentGoods']);
 Route::post('/InsertDocumentGoods', [DocumentGoodsController::class, 'InsertDocumentGoods']);
 
