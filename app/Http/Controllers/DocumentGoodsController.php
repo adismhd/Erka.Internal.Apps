@@ -10,6 +10,8 @@ use App\Models\Author;
 use App\Models\DocumentGoods;
 use App\Models\WorkflowApplication;
 use App\Models\WorkflowHistory;
+use App\Models\Alamat;
+use App\Models\PicCustomer;
 use Carbon\Carbon;
 
 class DocumentGoodsController extends Controller
@@ -80,14 +82,37 @@ class DocumentGoodsController extends Controller
     {
         $aplikasi = Aplikasi::where('Regno', $id)->first();
         $dg = DocumentGoods::where('Regno', $id)->first();
-        $authorList = Author::get();
-
+        $picList = PicCustomer::where('CodeId', $aplikasi->CustomerId)->get();
+        $alamatList = Alamat::where('CodeId', $aplikasi->CustomerId)->get();
+        
         return view('admin.documentGoodsDetail', [
             "title" => "DocumentGoods",
-            "aplikasiData" => $aplikasi,
-            "dgData" => $dg,
-            "authorList" => $authorList
+            "aplikasiDt" => $aplikasi,
+            "dgDt" => $dg,
+            "picList" => $picList,
+            "alamatList" => $alamatList
         ]);
     }
 
+    public function EditCustomerInformation(Request $request)
+    {
+        DocumentGoods::where('id', $request->Id)->update([
+            'PicCustomerId' => $request->Pic,
+            'AlamatInvoiceId' => $request->Alamat
+        ]);  
+
+        return back();
+    }
+    
+    public function EditRecipientInformation(Request $request)
+    {
+        DocumentGoods::where('id', $request->Id)->update([
+            'PicRecipientId' => $request->Pic,
+            'AlamatDeliveryId' => $request->Alamat,
+            'EstimasiTime' => $request->eTime,
+            'EstimasiDate' => $request->eDate
+        ]);  
+
+        return back();
+    }
 }

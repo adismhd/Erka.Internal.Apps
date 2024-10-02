@@ -21,4 +21,20 @@ class DocumentGoods extends Model
         'EstimasiDate'
     ];
 
+    public function PicCustomer()
+    {
+        return $this->hasOne(PicCustomer::class, 'id', 'PicCustomerId');
+    }
+    public function PicRecipient()
+    {
+        return $this->hasOne(PicCustomer::class, 'id', 'PicRecipientId');
+    }
+    public function AlamatInvoice()
+    {
+        return $this->hasOne(Alamat::class, 'id', 'AlamatInvoiceId');
+    }
+    public function AlamatDelivery()
+    {
+        return $this->hasOne(Alamat::class, 'id', 'AlamatDeliveryId');
+    }
 }

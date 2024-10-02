@@ -213,7 +213,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Keterangan <i style="color: crimson">*</i></label>
-                        <textarea type="text" class="form-control" name="NoKeterangan" required></textarea>
+                        <textarea type="text" class="form-control" name="Keterangan" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -292,9 +292,9 @@
     }
 
     function showModalTambahAlamat(){
-        $("#idAlamat").val();
-        $("#deskripsiAlamat").val();
-        $("#detailAlamat").val();
+        $("#idAlamat").val("");
+        $("#deskripsiAlamat").val("");
+        $("#detailAlamat").val("");
         $('#mTambahAlamat').modal({
             show: true,
             backdrop: 'static'
@@ -320,10 +320,10 @@
     }
     
     function showModalTambahPic(){
-        $("#idPic").val();
-        $("#picNama").val();
-        $("#picNoTlp").val();
-        $("#picKeterangan").val();
+        $("#idPic").val("");
+        $("#picNama").val("");
+        $("#picNoTlp").val("");
+        $("#picKeterangan").val("");
         $('#mTambahPic').modal({
             show: true,
             backdrop: 'static'
@@ -333,7 +333,7 @@
     function showModalEditPic(id, des, tlp, alamat){
         $("#idPic").val(id);
         $("#picNama").val(des);
-        $("#picNoTlp").val(alamat);
+        $("#picNoTlp").val(tlp);
         $("#picKeterangan").val(alamat);
         $('#mTambahPic').modal({
             show: true,
