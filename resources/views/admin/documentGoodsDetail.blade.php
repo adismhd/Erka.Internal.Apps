@@ -4,7 +4,7 @@
 @section('container')
 
 <div class="mt-4">
-    <h1>Detail Document Goods</h1>
+    <h1>Document Goods</h1>
 </div>
 
 <div class="row">
@@ -154,21 +154,26 @@
                         <th scope="col">QTY</th>
                         <th scope="col">Satuan</th>
                         <th scope="col">Keterangan</th>
-                        <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="smTambahDG()">Tambah</button></th>
+                        <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="smTambahGoods()">Tambah</button></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($alamatData as $data)
+                    @foreach ($itemGoodList as $data)
                         <tr class="" >
                             <td style="text-align: center">{{ $loop->iteration }}</td>
-                            <td>{{ $data->Deskripsi }}</td>
-                            <td style="white-space: nowrap;">{{ $data->Alamat }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Nama }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Spesifikasi }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Qty }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Satuan }}</td>
+                            <td style="white-space: nowrap;">{{ $data->Keterangan }}</td>
                             <td style="text-align: center">
-                                <button class="btn btn-sm btn-info" style="border-radius: 15px" onclick="smEditDG('{{ $data->id }}', '{{ $data->Deskripsi }}', '{{ $data->Alamat }}')">Edit</button>
-                                <button class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="smDeleteDG('{{ $data->id }}')">Hapus</button>
+                                <button class="btn btn-sm btn-info" style="border-radius: 15px" 
+                                    onclick="smEditGoods('{{ $data->id }}', '{{ $data->Nama }}', '{{ $data->Spesifikasi }}'
+                                    , '{{ $data->Qty }}', '{{ $data->Satuan }}', '{{ $data->Keterangan }}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" style="border-radius: 15px" onclick="smDeleteGoods('{{ $data->id }}')">Hapus</button>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -231,7 +236,7 @@
                 <div class="modal-body">
                     <div class="col-md-12 mb-3">
                         <label>PIC <i style="color: crimson">*</i></label>
-                        <select class="form-select form-control" name="Pic" id="sCiPic">
+                        <select class="form-select form-control" name="Pic" id="sRiPic">
                             @foreach ($picList as $data)
                                 <option value="{{ $data->id }}">{{ $data->Nama }}</option>
                             @endforeach
@@ -239,7 +244,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Alamat Delivery <i style="color: crimson">*</i></label>
-                        <select class="form-select form-control" name="Alamat" id="sCiAlamat">
+                        <select class="form-select form-control" name="Alamat" id="sRiAlamat">
                             @foreach ($alamatList as $data)
                                 <option value="{{ $data->id }}">{{ $data->Alamat }}</option>
                             @endforeach
@@ -247,11 +252,11 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Estitmated Time <i style="color: crimson">*</i></label>
-                        <input type="time" class="form-control" name="eTime">
+                        <input type="time" class="form-control" name="eTime" id="iET">
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Estitmated Date <i style="color: crimson">*</i></label>
-                        <input type="date" class="form-control" name="eDate">
+                        <input type="date" class="form-control" name="eDate" id="iED">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -263,8 +268,90 @@
     </div>
 </div>
 
+{{-- Modal Goods --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mtGoods">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/EditGoodsItem" method="post">
+                @csrf
+                <input type="text" value="{{ $aplikasiDt->Regno }}" name="Id" hidden />
+                <input type="text" name="IdItem" id="igId" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Goods </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label>Name of Goods & Codes Series <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" name="Nama" id="igNama">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Specification <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" name="Spesifikasi" id="igSpesifikasi">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Qty <i style="color: crimson">*</i></label>
+                        <input type="number" class="form-control" name="Qty" id="igQty">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Satuan <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" name="Satuan" id="igSatuan">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>Keterangan <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" name="Keterangan" id="igKeterangan">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Hapus Glosarium --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mHapus">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeleteGoodsItem" method="post">
+                @csrf
+                <input type="text" name="Id" id="idGoodsHapus" hidden />
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="ciPic" value="{{ $dgDt->PicCustomerId }}" >
+<input type="hidden" id="ciAlamat" value="{{ $dgDt->AlamatInvoiceId }}" >
+<input type="hidden" id="riPic" value="{{ $dgDt->PicRecipientId }}" >
+<input type="hidden" id="riAlamat" value="{{ $dgDt->AlamatDeliveryId }}" >
+<input type="hidden" id="riET" value="{{ $dgDt->EstimasiTime }}" >
+<input type="hidden" id="riED" value="{{ $dgDt->EstimasiDate }}" >
+
 <script type="text/javascript">
     function smEditCI(){
+        var pic = $("#ciPic").val();
+        var alamat = $("#ciAlamat").val();
+        $("#sCiPic").val(pic);
+        $("#sCiAlamat").val(alamat);
+
         $('#mtCI').modal({
             show: true,
             backdrop: 'static'
@@ -272,10 +359,56 @@
     }
 
     function smEditRI(){
+        var pic = $("#riPic").val();
+        var alamat = $("#riAlamat").val();
+        var et = $("#riET").val();
+        var ed = $("#riED").val();
+        $("#sRiPic").val(pic);
+        $("#sRiAlamat").val(alamat);
+        $("#iET").val(et);
+        $("#iED").val(ed);
+
         $('#mtRI').modal({
             show: true,
             backdrop: 'static'
         });
     }
+
+    function smTambahGoods(){
+        $("#igId").val("");
+        $("#igNama").val("");
+        $("#igSpesifikasi").val("");
+        $("#igQty").val("");
+        $("#igSatuan").val("");
+        $("#igKeterangan").val("");
+
+        $('#mtGoods').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
+    function smEditGoods(id, nm, sp, qty, sa, ket){
+        $("#igId").val(id);
+        $("#igNama").val(nm);
+        $("#igSpesifikasi").val(sp);
+        $("#igQty").val(qty);
+        $("#igSatuan").val(sa);
+        $("#igKeterangan").val(ket);
+
+        $('#mtGoods').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function smDeleteGoods(id){
+        $("#idGoodsHapus").val(id);
+        $('#mHapus').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
 </script>    
 @endsection

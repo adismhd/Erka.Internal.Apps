@@ -12,6 +12,7 @@ use App\Models\WorkflowApplication;
 use App\Models\WorkflowHistory;
 use App\Models\Alamat;
 use App\Models\PicCustomer;
+use App\Models\ItemGood;
 use Carbon\Carbon;
 
 class DocumentGoodsController extends Controller
@@ -84,13 +85,15 @@ class DocumentGoodsController extends Controller
         $dg = DocumentGoods::where('Regno', $id)->first();
         $picList = PicCustomer::where('CodeId', $aplikasi->CustomerId)->get();
         $alamatList = Alamat::where('CodeId', $aplikasi->CustomerId)->get();
+        $itemGoodList = ItemGood::where('Regno', $id)->get();
         
         return view('admin.documentGoodsDetail', [
             "title" => "DocumentGoods",
             "aplikasiDt" => $aplikasi,
             "dgDt" => $dg,
             "picList" => $picList,
-            "alamatList" => $alamatList
+            "alamatList" => $alamatList,
+            "itemGoodList" => $itemGoodList
         ]);
     }
 
@@ -113,6 +116,38 @@ class DocumentGoodsController extends Controller
             'EstimasiDate' => $request->eDate
         ]);  
 
+        return back();
+    }
+    
+    public function EditGoodsItem(Request $request)
+    {
+        if($request->IdItem == null || $request->IdItem == "" ){
+            ItemGood::create([
+                'Regno' => $request->Id,
+                'Nama' => $request->Nama,
+                'Spesifikasi' => $request->Spesifikasi,
+                'Qty' => $request->Qty,
+                'Satuan' => $request->Satuan,
+                'Keterangan' => $request->Keterangan
+            ]);
+        }
+        else{
+            ItemGood::where('id', $request->IdItem)->update([
+                'Nama' => $request->Nama,
+                'Spesifikasi' => $request->Spesifikasi,
+                'Qty' => $request->Qty,
+                'Satuan' => $request->Satuan,
+                'Keterangan' => $request->Keterangan
+            ]);    
+        }
+
+        return back();
+    }
+    
+    public function DeleteGoodsItem(Request $request)
+    { 
+        ItemGood::where('id', $request->Id)->delete();
+        
         return back();
     }
 }

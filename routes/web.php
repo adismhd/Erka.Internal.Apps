@@ -52,4 +52,5 @@ Route::get('/DetailDocumentGoods/{id}', [DocumentGoodsController::class, 'Detail
 Route::post('/InsertDocumentGoods', [DocumentGoodsController::class, 'InsertDocumentGoods']);
 Route::post('/EditCustomerInformation', [DocumentGoodsController::class, 'EditCustomerInformation']);
 Route::post('/EditRecipientInformation', [DocumentGoodsController::class, 'EditRecipientInformation']);
-
+Route::post('/EditGoodsItem', [DocumentGoodsController::class, 'EditGoodsItem']);
+Route::post('/DeleteGoodsItem', [DocumentGoodsController::class, 'DeleteGoodsItem']);
