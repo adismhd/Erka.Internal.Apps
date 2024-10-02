@@ -15,12 +15,12 @@ use App\Models\PicCustomer;
 use App\Models\ItemGood;
 use Carbon\Carbon;
 
-class DocumentGoodsController extends Controller
+class RfqController extends Controller
 {
     public function GetListData()
     {
         $aplikasis = Aplikasi::whereHas('WorkflowHistory', function($query) {
-                $query->where('WorkflowCodeId', 'DG');
+                $query->where('WorkflowCodeId', 'RFQ');
             })
             ->with('WorkflowHistory')
             ->with('Author')
@@ -30,8 +30,8 @@ class DocumentGoodsController extends Controller
         $perusahaanList = Customers::get();
         $authorList = Author::get();
             
-        return view('admin.documentGoods', [
-            "title" => "DG",
+        return view('admin.rfq', [
+            "title" => "RFQ",
             "inboxList" => $aplikasis,
             "authorList" => $authorList,
             "perusahaanList" => $perusahaanList
@@ -88,7 +88,7 @@ class DocumentGoodsController extends Controller
         $itemGoodList = ItemGood::where('Regno', $id)->get();
         
         return view('admin.documentGoodsDetail', [
-            "title" => "DG",
+            "title" => "DocumentGoods",
             "aplikasiDt" => $aplikasi,
             "dgDt" => $dg,
             "picList" => $picList,

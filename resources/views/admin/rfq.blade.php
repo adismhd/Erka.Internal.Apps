@@ -3,7 +3,7 @@
 @section('container')
 
 <div class="mt-4">
-    <h1>List Document Goods</h1>
+    <h1>List Request For Quotation</h1>
 </div>
 
 <div class="card mt-3" style="border-radius: 25px">    
@@ -17,7 +17,7 @@
                         <th scope="col">Author</th>
                         <th scope="col">Perusahaan</th>
                         <th scope="col">Create At</th>
-                        <th scope="col" style="text-align: center"><button class="btn btn-sm btn-primary" style="border-radius: 15px" onclick="showModalTambah()">Tambah</button></th>
+                        <th scope="col" style="text-align: center">#</th>
                     </tr>
                 </thead>
                 <tbody>

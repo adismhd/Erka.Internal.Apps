@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GlosariumController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\DocumentGoodsController;
+use App\Http\Controllers\RfqController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -54,3 +55,6 @@ Route::post('/EditCustomerInformation', [DocumentGoodsController::class, 'EditCu
 Route::post('/EditRecipientInformation', [DocumentGoodsController::class, 'EditRecipientInformation']);
 Route::post('/EditGoodsItem', [DocumentGoodsController::class, 'EditGoodsItem']);
 Route::post('/DeleteGoodsItem', [DocumentGoodsController::class, 'DeleteGoodsItem']);
+
+//RFQ
+Route::get('/RFQ', [RfqController::class, 'GetListData']);
