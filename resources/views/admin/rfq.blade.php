@@ -28,7 +28,7 @@
                             <td>{{ isset($data->author->Nama) ?  $data->author->Nama  : '' }}</td>
                             <td>{{ isset($data->customers->Perusahaan) ?  $data->customers->Perusahaan  : '' }}</td>
                             <td>{{ isset($data->created_at) ?  $data->created_at  : '' }}</td>
-                            <td  style="text-align: center"><a href="DetailDocumentGoods/{{ $data->Regno }}" class="btn btn-sm btn-info"  style="border-radius: 15px" >Detail</a></td>
+                            <td  style="text-align: center"><a href="DetailRfq/{{ $data->Regno }}" class="btn btn-sm btn-info"  style="border-radius: 15px" >Detail</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -52,17 +52,17 @@
                     <div class="col-md-12 mb-3">
                         <label>Author <i style="color: crimson">*</i></label>
                         <select class="form-select form-control" name="Author" id="sAuthor">
-                            @foreach ($authorList as $data)
+                            {{-- @foreach ($authorList as $data)
                                 <option value="{{ $data->id }}">{{ $data->Nama }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Perusahaan <i style="color: crimson">*</i></label>
                         <select class="form-select form-control" name="PerusahaanData" id="sPerusahaan">
-                            @foreach ($perusahaanList as $data)
+                            {{-- @foreach ($perusahaanList as $data)
                                 <option value="{{ $data->Code }}">{{ $data->Perusahaan }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                 </div>

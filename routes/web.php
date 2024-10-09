@@ -6,6 +6,7 @@ use App\Http\Controllers\GlosariumController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\DocumentGoodsController;
 use App\Http\Controllers\RfqController;
+use App\Http\Controllers\WorkflowController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -14,7 +15,8 @@ Route::get('/Login', function () {
     return view('admin.login');
 });
 
-
+// NEXT STAGE
+Route::post('/NextStage', [WorkflowController::class, 'UpdateWorkflow']);
 
 // USER
 Route::post('/LoginCheck', [UserController::class, 'Login']);
@@ -58,3 +60,4 @@ Route::post('/DeleteGoodsItem', [DocumentGoodsController::class, 'DeleteGoodsIte
 
 //RFQ
 Route::get('/RFQ', [RfqController::class, 'GetListData']);
+Route::get('/DetailRfq/{id}', [RfqController::class, 'DetailRfq']);

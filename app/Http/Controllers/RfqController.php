@@ -13,6 +13,8 @@ use App\Models\WorkflowHistory;
 use App\Models\Alamat;
 use App\Models\PicCustomer;
 use App\Models\ItemGood;
+use App\Models\Perusahaan;
+use App\Models\Rfq;
 use Carbon\Carbon;
 
 class RfqController extends Controller
@@ -29,120 +31,35 @@ class RfqController extends Controller
             
         return view('admin.rfq', [
             "title" => "RFQ",
-            "perusahaanList" => $perusahaanList
+            "inboxList" => $aplikasis
         ]);
     }
     
-    public function InsertDocumentGoods(Request $request)
-    {
-        //dd($request->PerusahaanData);
-
-        $todayCount = Aplikasi::whereDate('created_at', Carbon::today())->count() + 1;
-        $prefix = $request->PerusahaanData;
-        $month = date('m');
-        $year = date('Y');
-        $number = str_pad($todayCount, 5, '0', STR_PAD_LEFT);
-        $regno = "{$prefix}-{$month}-{$year}-{$number}";
-
-        Aplikasi::create([
-            'Regno' => $regno,
-            'CustomerId' => $request->PerusahaanData,
-            'AuthorId' => $request->Author
-        ]);
-
-        WorkflowHistory::create([
-            'Regno' => $regno,
-            'WorkflowCodeId' => 'ST'
-        ]);
-
-        WorkflowHistory::create([
-            'Regno' => $regno,
-            'WorkflowCodeId' => 'DG'
-        ]);
-
-        WorkflowApplication::create([
-            'Regno' => $regno,
-            'WorkflowCurrentCodeId' => 'DG',
-            'WorkflowLastCodeId' => 'ST'
-        ]);
-
-        DocumentGoods::create([
-            'Regno' => $regno
-        ]);
-        
-
-        return redirect('/DetailDocumentGoods/'.$regno);
-    }
-    
-    public function DetailDocumentGoods($id)
+    public function DetailRfq($id)
     {
         $aplikasi = Aplikasi::where('Regno', $id)->first();
+        $perusahaan = Perusahaan::get();
+        $wf = WorkflowApplication::where('Regno', $id)->first();
         $dg = DocumentGoods::where('Regno', $id)->first();
-        $picList = PicCustomer::where('CodeId', $aplikasi->CustomerId)->get();
-        $alamatList = Alamat::where('CodeId', $aplikasi->CustomerId)->get();
         $itemGoodList = ItemGood::where('Regno', $id)->get();
-        
-        return view('admin.documentGoodsDetail', [
-            "title" => "DocumentGoods",
+        $rfq = Rfq::where('Regno', $id)->first();
+
+        if($rfq == null){
+            Rfq::create([
+                'Regno' => $id,
+                'PerushaanId' => null
+            ]);
+        }
+
+        return view('admin.rfqDetail', [
+            "title" => "RFQ",
             "aplikasiDt" => $aplikasi,
             "dgDt" => $dg,
-            "picList" => $picList,
-            "alamatList" => $alamatList,
-            "itemGoodList" => $itemGoodList
+            "rfq" => $rfq,
+            "perusahaanList" => $perusahaan,
+            "itemGoodList" => $itemGoodList,
+            "wfApp" => $wf
         ]);
     }
 
-    public function EditCustomerInformation(Request $request)
-    {
-        DocumentGoods::where('id', $request->Id)->update([
-            'PicCustomerId' => $request->Pic,
-            'AlamatInvoiceId' => $request->Alamat
-        ]);  
-
-        return back();
-    }
-    
-    public function EditRecipientInformation(Request $request)
-    {
-        DocumentGoods::where('id', $request->Id)->update([
-            'PicRecipientId' => $request->Pic,
-            'AlamatDeliveryId' => $request->Alamat,
-            'EstimasiTime' => $request->eTime,
-            'EstimasiDate' => $request->eDate
-        ]);  
-
-        return back();
-    }
-    
-    public function EditGoodsItem(Request $request)
-    {
-        if($request->IdItem == null || $request->IdItem == "" ){
-            ItemGood::create([
-                'Regno' => $request->Id,
-                'Nama' => $request->Nama,
-                'Spesifikasi' => $request->Spesifikasi,
-                'Qty' => $request->Qty,
-                'Satuan' => $request->Satuan,
-                'Keterangan' => $request->Keterangan
-            ]);
-        }
-        else{
-            ItemGood::where('id', $request->IdItem)->update([
-                'Nama' => $request->Nama,
-                'Spesifikasi' => $request->Spesifikasi,
-                'Qty' => $request->Qty,
-                'Satuan' => $request->Satuan,
-                'Keterangan' => $request->Keterangan
-            ]);    
-        }
-
-        return back();
-    }
-    
-    public function DeleteGoodsItem(Request $request)
-    { 
-        ItemGood::where('id', $request->Id)->delete();
-        
-        return back();
-    }
 }

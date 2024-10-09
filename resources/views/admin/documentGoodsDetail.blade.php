@@ -220,7 +220,7 @@
     </div>
 </div>
 
-{{-- Modal Recipient  Information --}}
+{{-- Modal Recipient Information --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="mtRI">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -339,25 +339,25 @@
 </div>
 
 {{-- Modal Next Stage --}}
-<div class="modal fade" tabindex="-1" role="dialog" id="mHapus">
+<div class="modal fade" tabindex="-1" role="dialog" id="mNext">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="/DeleteGlosarium" method="post">
+            <form action="/NextStage" method="post">
                 @csrf
-                <input type="text" value="{{ $dgDt->id }}" name="Id" hidden />
-                
+                <input type="text" value="{{ $aplikasiDt->Regno }}" name="Regno" hidden />
+                <input type="text" value="RFQ" name="Next" hidden />
+
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data</h5>
+                    {{-- <h5 class="modal-title">Hapus Data</h5> --}}
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center">
-                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
-                    <b style="color: crimson">Semua data customer dan alamat akan dihapus PERMANEN</b>
+                    <p style="color: black">Apakah anda yakin akan melanjutkan data?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="submit" class="btn btn-primary">Ya</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </form>            
@@ -444,8 +444,7 @@
     }
     
     function showModalNextStage(){
-        $("#idGoodsHapus").val(id);
-        $('#mHapus').modal({
+        $('#mNext').modal({
             show: true,
             backdrop: 'static'
         });
