@@ -338,6 +338,39 @@
     </div>
 </div>
 
+{{-- Modal Next Stage --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mHapus">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/DeleteGlosarium" method="post">
+                @csrf
+                <input type="text" value="{{ $dgDt->id }}" name="Id" hidden />
+                
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan menghapus data?</p>
+                    <b style="color: crimson">Semua data customer dan alamat akan dihapus PERMANEN</b>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+@if($wfApp->WorkflowCurrentCodeId == 'DG')
+    <div class="alert alert-primary mt-3" style="border-radius: 25px">
+        <a href="#" onclick="showModalNextStage()">Lanjutkan Data Ke Request For Quotation</a>
+    </div>
+@endif
+
 <input type="hidden" id="ciPic" value="{{ $dgDt->PicCustomerId }}" >
 <input type="hidden" id="ciAlamat" value="{{ $dgDt->AlamatInvoiceId }}" >
 <input type="hidden" id="riPic" value="{{ $dgDt->PicRecipientId }}" >
@@ -403,6 +436,14 @@
     }
     
     function smDeleteGoods(id){
+        $("#idGoodsHapus").val(id);
+        $('#mHapus').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
+    function showModalNextStage(){
         $("#idGoodsHapus").val(id);
         $('#mHapus').modal({
             show: true,

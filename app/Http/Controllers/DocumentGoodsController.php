@@ -86,6 +86,7 @@ class DocumentGoodsController extends Controller
         $picList = PicCustomer::where('CodeId', $aplikasi->CustomerId)->get();
         $alamatList = Alamat::where('CodeId', $aplikasi->CustomerId)->get();
         $itemGoodList = ItemGood::where('Regno', $id)->get();
+        $wf = WorkflowApplication::where('Regno', $id)->first();
         
         return view('admin.documentGoodsDetail', [
             "title" => "DG",
@@ -93,7 +94,8 @@ class DocumentGoodsController extends Controller
             "dgDt" => $dg,
             "picList" => $picList,
             "alamatList" => $alamatList,
-            "itemGoodList" => $itemGoodList
+            "itemGoodList" => $itemGoodList,
+            "wfApp" => $wf
         ]);
     }
 
