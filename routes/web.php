@@ -61,3 +61,4 @@ Route::post('/DeleteGoodsItem', [DocumentGoodsController::class, 'DeleteGoodsIte
 //RFQ
 Route::get('/RFQ', [RfqController::class, 'GetListData']);
 Route::get('/DetailRfq/{id}', [RfqController::class, 'DetailRfq']);
+Route::post('/SavePerushaan', [RfqController::class, 'SavePerushaan']);

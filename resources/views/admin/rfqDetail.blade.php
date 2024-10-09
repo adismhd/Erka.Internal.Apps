@@ -9,15 +9,19 @@
 
 <div class="card mt-3" style="border-radius: 25px">
     <div class="card-body">
-        <div class="input-group">
-            <select class="form-control" onchange="ChangePt()" id="scPT">
-                <option value="">-- Pilih --</option>
-                @foreach ($perusahaanList as $data)
-                    <option value="{{ $data->Code }}" {{ ($data->Code == $rfq->PerushaanId) ? 'selected' : '' }}>{{ $data->Nama }}</option>
-                @endforeach
-            </select> &nbsp;
-            <button class="btn btn-success">Save</button>
-        </div>
+        <form action="/SavePerushaan" method="post">
+            @csrf
+            <input type="text" value="{{ $aplikasiDt->Regno }}" name="Regno" hidden />
+            <div class="input-group">
+                <select class="form-control" onchange="ChangePt()" id="scPT" name="ptInduk">
+                    <option value="">-- Pilih --</option>
+                    @foreach ($perusahaanList as $data)
+                        <option value="{{ $data->Code }}" {{ ($data->Code == $rfq->PerusahaanId) ? 'selected' : '' }}>{{ $data->Nama }}</option>
+                    @endforeach
+                </select> &nbsp;
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -158,7 +162,7 @@
     
     function ChangePt(){
         var val = $("#scPT").val();
-        alert(val);
+        //alert(val);
     }
     
 </script>    

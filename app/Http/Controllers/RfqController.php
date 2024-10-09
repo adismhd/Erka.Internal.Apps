@@ -15,6 +15,7 @@ use App\Models\PicCustomer;
 use App\Models\ItemGood;
 use App\Models\Perusahaan;
 use App\Models\Rfq;
+use App\Models\InstructionNote;
 use Carbon\Carbon;
 
 class RfqController extends Controller
@@ -47,10 +48,12 @@ class RfqController extends Controller
         if($rfq == null){
             Rfq::create([
                 'Regno' => $id,
-                'PerushaanId' => null
+                'PerusahaanId' => null
             ]);
         }
-
+        $tempPerushaan = $rfq->PerusahaanId ?? "";
+        $in = InstructionNote::where('PerusahaanId', $tempPerushaan)->get();
+        
         return view('admin.rfqDetail', [
             "title" => "RFQ",
             "aplikasiDt" => $aplikasi,
@@ -58,8 +61,18 @@ class RfqController extends Controller
             "rfq" => $rfq,
             "perusahaanList" => $perusahaan,
             "itemGoodList" => $itemGoodList,
+            "instructionNote" => $in,
             "wfApp" => $wf
         ]);
+    }
+
+    public function SavePerushaan(Request $request)
+    {
+        Rfq::where('Regno', $request->Regno)->update([
+            'PerusahaanId' => $request->ptInduk
+        ]);
+
+        return back();
     }
 
 }

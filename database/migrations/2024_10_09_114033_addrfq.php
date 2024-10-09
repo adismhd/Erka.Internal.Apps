@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_rfq', function (Blueprint $table) {
             $table->id();
             $table->string('Regno');
-            $table->string('PerushaanId')->nullable();
+            $table->string('PerusahaanId')->nullable();
             $table->timestamps();
         });
         
