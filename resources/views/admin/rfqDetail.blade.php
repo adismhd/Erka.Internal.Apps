@@ -29,14 +29,20 @@
     <div class="mt-3 col-md-7">
         <div class="card" style="border-radius: 25px">
             <div class="card-body">
-                
+                @isset($perusahaanDt)
+                    {{-- <p>{{ $perusahaanDt }}</p> --}}
+                    <h4>{{ $perusahaanDt->Nama }}</h4>
+                    <h6>{{ $perusahaanDt->Deskripsi }}</h6>
+                    <h6>{{ $perusahaanDt->Alamat }}</h6>
+                @endisset
             </div>
         </div>
     </div>
     <div class="mt-3 col-md-5">
         <div class="card" style="border-radius: 25px">
-            <div class="card-body">
-                
+            <div class="card-body" style="text-align: center">
+                <h5>{{ $aplikasiDt->Regno }}</h5>
+                <h6>{{ $tanggal }}</h6>
             </div>
         </div>
     </div>
@@ -80,8 +86,22 @@
     </div>
     <div class="mt-3 col-md-6">
         <div class="card" style="border-radius: 25px">
+            <div class="card-header" style="border-top-left-radius: 25px; border-top-right-radius: 25px;">
+                <h5>Instruction Note</h5>
+            </div>
             <div class="card-body">
-                
+                <div class="table-responsive" style="border-radius: 15px;">
+                    <table class="table table-striped table-sm" style="">
+                        <tbody>
+                            @foreach ($instructionNote as $data)
+                                <tr class="" >
+                                    <td style="text-align: center">{{ $loop->iteration }}</td>
+                                    <td style="">{{ $data->Deskripsi }}</td>                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

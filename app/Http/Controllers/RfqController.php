@@ -53,13 +53,18 @@ class RfqController extends Controller
         }
         $tempPerushaan = $rfq->PerusahaanId ?? "";
         $in = InstructionNote::where('PerusahaanId', $tempPerushaan)->get();
-        
+        $perusahaanDt = Perusahaan::where('Code', $tempPerushaan)->first();
+
+        $tanggal = Carbon::parse($rfq->created_at)->translatedFormat('l, d F Y');
+
         return view('admin.rfqDetail', [
             "title" => "RFQ",
             "aplikasiDt" => $aplikasi,
             "dgDt" => $dg,
             "rfq" => $rfq,
+            "tanggal" => $tanggal,
             "perusahaanList" => $perusahaan,
+            "perusahaanDt" => $perusahaanDt,
             "itemGoodList" => $itemGoodList,
             "instructionNote" => $in,
             "wfApp" => $wf
