@@ -26,14 +26,9 @@ class RfqController extends Controller
             ->with('Author')
             ->with('Customers')
             ->get();
-
-        $perusahaanList = Customers::get();
-        $authorList = Author::get();
             
         return view('admin.rfq', [
             "title" => "RFQ",
-            "inboxList" => $aplikasis,
-            "authorList" => $authorList,
             "perusahaanList" => $perusahaanList
         ]);
     }
