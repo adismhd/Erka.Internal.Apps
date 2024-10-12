@@ -7,6 +7,7 @@ use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\DocumentGoodsController;
 use App\Http\Controllers\RfqController;
 use App\Http\Controllers\WorkflowController;
+use App\Http\Controllers\SupplierContoller;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -62,3 +63,9 @@ Route::post('/DeleteGoodsItem', [DocumentGoodsController::class, 'DeleteGoodsIte
 Route::get('/RFQ', [RfqController::class, 'GetListData']);
 Route::get('/DetailRfq/{id}', [RfqController::class, 'DetailRfq']);
 Route::post('/SavePerushaan', [RfqController::class, 'SavePerushaan']);
+Route::get('/DetailRfq/ValidateRfq/{id}', [RfqController::class, 'ValidateRfq']);
+
+//Supplier
+Route::get('/Supplier', [SupplierContoller::class, 'GetListData']);
+Route::get('/DetailSupplier/{id}', [SupplierContoller::class, 'DetailSupplier']);
+Route::post('/SetSupplier', [SupplierContoller::class, 'SetSupplier']);

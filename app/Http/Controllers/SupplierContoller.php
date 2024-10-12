@@ -4,39 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\RefSupplier;
+use App\Models\Supplier;
+use App\Models\SupplierLink;
 use App\Models\Aplikasi;
-use App\Models\Customers;
-use App\Models\Author;
-use App\Models\DocumentGoods;
-use App\Models\WorkflowApplication;
-use App\Models\WorkflowHistory;
-use App\Models\Alamat;
-use App\Models\PicCustomer;
-use App\Models\ItemGood;
 use App\Models\Perusahaan;
+use App\Models\WorkflowApplication;
+use App\Models\DocumentGoods;
+use App\Models\ItemGood;
 use App\Models\Rfq;
 use App\Models\InstructionNote;
 use Carbon\Carbon;
 
-class RfqController extends Controller
+class SupplierContoller extends Controller
 {
     public function GetListData()
     {
         $aplikasis = Aplikasi::whereHas('WorkflowHistory', function($query) {
-                $query->where('WorkflowCodeId', 'RFQ');
-            })
-            ->with('WorkflowHistory')
-            ->with('Author')
-            ->with('Customers')
-            ->get();
+            $query->where('WorkflowCodeId', 'SW');
+        })
+        ->with('WorkflowHistory')
+        ->with('Author')
+        ->with('Customers')
+        ->with('Supplier')
+        ->get();
+
+        $supplierList = RefSupplier::get();
             
-        return view('admin.rfq', [
-            "title" => "RFQ",
-            "inboxList" => $aplikasis
+        return view('admin.supplier', [
+            "title" => "Supplier",
+            "inboxList" => $aplikasis,
+            "supplierList" => $supplierList
         ]);
     }
+
+    public function SetSupplier(Request $request)
+    {
+        $data = Supplier::where('Regno', $request->Regno)->first();
+        if ($data == null){
+            Supplier::create([
+                'Regno' => $request->Regno,
+                'SupplierCode' => $request->SupplierCode
+            ]);
+        }
+        else {
+            Supplier::where('Regno', $request->Regno)->update([
+                'SupplierCode' => $request->SupplierCode
+            ]);
+        }
+
+        return back();
+    }
     
-    public function DetailRfq($id)
+    public function DetailSupplier($id)
     {
         $aplikasi = Aplikasi::where('Regno', $id)->first();
         $perusahaan = Perusahaan::get();
@@ -71,24 +91,4 @@ class RfqController extends Controller
         ]);
     }
 
-    public function SavePerushaan(Request $request)
-    {
-        Rfq::where('Regno', $request->Regno)->update([
-            'PerusahaanId' => $request->ptInduk
-        ]);
-
-        return back();
-    }
-
-    public function ValidateRfq($id)
-    {
-        $dg = Rfq::where('Regno', $id)->first();
-        $validate = true;
-        if ($dg->PerusahaanId == null || $dg->PerusahaanId == "")
-        {
-            $validate = false;
-        }
-
-        return Response()->json($validate);
-    }
 }

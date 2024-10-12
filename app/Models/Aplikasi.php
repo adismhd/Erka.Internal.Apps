@@ -40,4 +40,8 @@ class Aplikasi extends Model
     {
         return $this->hasmany(ItemGood::class, 'Regno', 'Regno');
     }
+    public function Supplier()
+    {
+        return $this->hasOne(Supplier::class, 'Regno', 'Regno');
+    }
 }

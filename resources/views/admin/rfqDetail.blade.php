@@ -168,12 +168,44 @@
 
 @if($wfApp->WorkflowCurrentCodeId == 'RFQ')
     <div class="alert alert-primary mt-3" style="border-radius: 25px">
-        <a href="#" onclick="showModalNextStage()">Lanjutkan Data Ke Supplier</a>
+        <a href="#" onclick="ValidateData()">Lanjutkan Data Ke Supplier</a>
     </div>
 @endif
 
+<input type="text" value="{{ $aplikasiDt->Regno }}" id="dtId" hidden/>
+
 <script type="text/javascript">
-    function showModalNextStage(){
+    function ValidateData(){
+        const regno = $("#dtId").val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "ValidateRfq/"+regno,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: (Dt, textStatus, jqXHR) => {
+                console.log(Dt);
+                if (Dt == false) {
+                    alert("Lengkapi Semua Data!");
+                }
+                else {
+                    ShowModalNextStage()
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    }
+
+    function ShowModalNextStage(){
         $('#mNext').modal({
             show: true,
             backdrop: 'static'

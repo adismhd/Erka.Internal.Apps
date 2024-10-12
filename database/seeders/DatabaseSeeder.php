@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\Perusahaan;
 use App\Models\InstructionNote;
 use App\Models\Workflow;
+use App\Models\RefSupplier;
 
 use Illuminate\Database\Seeder;
 
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         Menu::create(['Nama' => 'Glosarium', 'Deskripsi' => 'Glosarium', 'Role' => 'superadmin', 'Order' => 2, 'Link' => '/Glosarium', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
         Menu::create(['Nama' => 'DG', 'Deskripsi' => 'Document Goods', 'Role' => 'superadmin', 'Order' => 3, 'Link' => '/DocumentGoods', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
         Menu::create(['Nama' => 'RFQ', 'Deskripsi' => 'Request For Quotation', 'Role' => 'superadmin', 'Order' => 4, 'Link' => '/RFQ', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Supplier', 'Deskripsi' => 'Supplier', 'Role' => 'superadmin', 'Order' => 5, 'Link' => '/Supplier', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
         Menu::create(['Nama' => 'Parameter', 'Deskripsi' => 'Parameter', 'Role' => 'superadmin', 'Order' => 10, 'Link' => '/Parameter', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
 
         Author::get()->each->delete();
@@ -53,5 +55,9 @@ class DatabaseSeeder extends Seeder
         Workflow::create(['CodeId' => 'DO', 'Deskripsi' => 'Delivery Order']);
         Workflow::create(['CodeId' => 'IN', 'Deskripsi' => 'Invoice']);
         Workflow::create(['CodeId' => 'FN', 'Deskripsi' => 'Final']);
+
+        RefSupplier::get()->each->delete();
+        RefSupplier::create(['CodeId' => '101', 'Deskripsi' => 'Supplier PO']);
+        RefSupplier::create(['CodeId' => '102', 'Deskripsi' => 'Supplier With Link']);
     }
 }
