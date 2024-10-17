@@ -20,4 +20,8 @@ class ItemGood extends Model
         'Keterangan'
     ];
 
+    public function SupplierLink()
+    {
+        return $this->hasmany(SupplierLink::class, 'ItemGoodsId', 'id');
+    }
 }

@@ -69,3 +69,4 @@ Route::get('/DetailRfq/ValidateRfq/{id}', [RfqController::class, 'ValidateRfq'])
 Route::get('/Supplier', [SupplierContoller::class, 'GetListData']);
 Route::get('/DetailSupplier/{id}', [SupplierContoller::class, 'DetailSupplier']);
 Route::post('/SetSupplier', [SupplierContoller::class, 'SetSupplier']);
+Route::post('/AddSupplierLink', [SupplierContoller::class, 'AddSupplierLink']);

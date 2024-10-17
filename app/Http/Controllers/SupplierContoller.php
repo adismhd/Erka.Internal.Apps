@@ -59,36 +59,67 @@ class SupplierContoller extends Controller
     public function DetailSupplier($id)
     {
         $aplikasi = Aplikasi::where('Regno', $id)->first();
-        $perusahaan = Perusahaan::get();
-        $wf = WorkflowApplication::where('Regno', $id)->first();
-        $dg = DocumentGoods::where('Regno', $id)->first();
-        $itemGoodList = ItemGood::where('Regno', $id)->get();
-        $rfq = Rfq::where('Regno', $id)->first();
+        $supplier = Supplier::where('Regno', $id)->first();
 
-        if($rfq == null){
-            Rfq::create([
-                'Regno' => $id,
-                'PerusahaanId' => null
+        if ($supplier->SupplierCode == "101")
+        {
+            $itemGood = ItemGood::where('Regno', $id)->get();
+            
+            return view('admin.supplierPo', [
+                "title" => "Supplier",
+                "supplier" => $supplier,
             ]);
         }
-        $tempPerushaan = $rfq->PerusahaanId ?? "";
-        $in = InstructionNote::where('PerusahaanId', $tempPerushaan)->get();
-        $perusahaanDt = Perusahaan::where('Code', $tempPerushaan)->first();
-
-        $tanggal = Carbon::parse($rfq->created_at)->translatedFormat('l, d F Y');
-
-        return view('admin.rfqDetail', [
-            "title" => "RFQ",
-            "aplikasiDt" => $aplikasi,
-            "dgDt" => $dg,
-            "rfq" => $rfq,
-            "tanggal" => $tanggal,
-            "perusahaanList" => $perusahaan,
-            "perusahaanDt" => $perusahaanDt,
-            "itemGoodList" => $itemGoodList,
-            "instructionNote" => $in,
-            "wfApp" => $wf
-        ]);
+        else 
+        {
+            $itemGood = ItemGood::where('Regno', $id)->get();
+            $dokumenGood = DocumentGoods::where('Regno', $id)->first();
+            
+            return view('admin.supplierLink', [
+                "title" => "Supplier",
+                "supplierDt" => $supplier,
+                "itemGoodDt" => $itemGood,
+                "dokumenGoodDt" => $dokumenGood
+            ]);
+        }
     }
 
+    public function AddSupplierLink(Request $request)
+    {
+        $dataItem = ItemGood::where('id', $request->Id)->first();
+        $data = SupplierLink::where('ItemGoodsId', $request->Id)->first();
+
+        $totalHarga = $request->Harga * $dataItem->Qty;
+
+        if ($data == null){
+            SupplierLink::create([
+                'ItemGoodsId' => $request->IdItem,
+                'Supplier' => $request->Supplier,
+                'Alamat' => $request->Alamat,
+                'Pic' => "",
+                'NoTelepon' => $request->Telepon,
+                'Link' => $request->Link,
+                'Harga' => $request->Harga,
+                'TotalHarga' => $totalHarga,
+                'Ppn' => $request->Ppn,
+                'Keterangan' => $request->Keterangan
+            ]);
+        }
+        else {
+            SupplierLink::where('ItemGoodsId', $request->Id)->update([
+                'ItemGoodsId' => $request->IdItem,
+                'Supplier' => $request->Supplier,
+                'Alamat' => $request->Alamat,
+                'Pic' => "",
+                'NoTelepon' => $request->Telepon,
+                'Link' => $request->Link,
+                'Harga' => $request->Harga,
+                'TotalHarga' => $totalHarga,
+                'Ppn' => $request->Ppn,
+            ]);
+        }
+
+        return back();
+    }
+    
 }
