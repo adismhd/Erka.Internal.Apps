@@ -86,7 +86,7 @@ class SupplierContoller extends Controller
 
     public function AddSupplierLink(Request $request)
     {
-        $dataItem = ItemGood::where('id', $request->Id)->first();
+        $dataItem = ItemGood::where('id', $request->IdItem)->first();
         $data = SupplierLink::where('ItemGoodsId', $request->Id)->first();
 
         $totalHarga = $request->Harga * $dataItem->Qty;
@@ -106,7 +106,7 @@ class SupplierContoller extends Controller
             ]);
         }
         else {
-            SupplierLink::where('ItemGoodsId', $request->Id)->update([
+            SupplierLink::where('id', $request->Id)->update([
                 'ItemGoodsId' => $request->IdItem,
                 'Supplier' => $request->Supplier,
                 'Alamat' => $request->Alamat,
@@ -122,4 +122,11 @@ class SupplierContoller extends Controller
         return back();
     }
     
+    public function DeleteSupplierLink(Request $request)
+    {
+        SupplierLink::where('Id',$request->Id)->delete();
+        
+        return back();
+    }
+
 }

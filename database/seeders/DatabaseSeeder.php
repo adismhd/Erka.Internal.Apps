@@ -38,11 +38,25 @@ class DatabaseSeeder extends Seeder
         
         Perusahaan::get()->each->delete();
         Perusahaan::create(['Nama' => 'PT. RIA KUSUMAH BERSAMA', 'Code' => 'RKB-PAK-',  'Deskripsi' => 'Telekomunikasi-IT Support Solution ', 'Alamat' => 'Jl. Saturnus Utara V No.1, Manjahlega, Kec. Rancasari, Kota Bandung, Jawa Barat 40286']);
+        Perusahaan::create(['Nama' => 'PT. REKAN KREATIF SOLUSINDO', 'Code' => 'RKS-HAK-',  'Deskripsi' => 'Telekomunikasi ', 'Alamat' => 'Ruko Bukit Gading Mediterania Blok A/01, Kel. Kelapa Gading Barat, Kec. Kelapa Gading, Kota Adm. Jakarta Utara, Prov. DKI Jakarta, 14240']);
+        Perusahaan::create(['Nama' => 'PT. GAMA SUKMA BERSAMA', 'Code' => 'GSB-GPK-',  'Deskripsi' => 'DIGITAL PRINTING & ATK', 'Alamat' => 'Jl. Cemara B No.1, Rancabolang, Kec. Gedebage, Kota Bandung, Jawa Barat 40295']);
         
         InstructionNote::get()->each->delete();
         InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The goods that are informed must meet the requested specifications, if conditions occur that allow the goods not to meet the specifications, then please provide a replacement item along with the reason']);
         InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The price listed is the price with VAT 11%']);
+        InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'If there is a shipping fee, it will be listed on the Offering Letter submission']);
+        InstructionNote::create(['PerusahaanId' => 'RKB-PAK-', 'Deskripsi' => 'The offering letter is accompanied by a product image, specifications and warranty status of the product']);
         
+        InstructionNote::create(['PerusahaanId' => 'RKS-HAK-', 'Deskripsi' => 'The goods that are informed must meet the requested specifications, if conditions occur that allow the goods not to meet the specifications, then please provide a replacement item along with the reason']);
+        InstructionNote::create(['PerusahaanId' => 'RKS-HAK-', 'Deskripsi' => 'The price listed is the price with VAT 11%']);
+        InstructionNote::create(['PerusahaanId' => 'RKS-HAK-', 'Deskripsi' => 'If there is a shipping fee, it will be listed on the Offering Letter submission']);
+        InstructionNote::create(['PerusahaanId' => 'RKS-HAK-', 'Deskripsi' => 'The offering letter is accompanied by a product image, specifications and warranty status of the product']);
+        
+        InstructionNote::create(['PerusahaanId' => 'GSB-GPK-', 'Deskripsi' => 'The goods that are informed must meet the requested specifications, if conditions occur that allow the goods not to meet the specifications, then please provide a replacement item along with the reason']);
+        InstructionNote::create(['PerusahaanId' => 'GSB-GPK-', 'Deskripsi' => 'The price listed is the price with VAT 11%']);
+        InstructionNote::create(['PerusahaanId' => 'GSB-GPK-', 'Deskripsi' => 'If there is a shipping fee, it will be listed on the Offering Letter submission']);
+        InstructionNote::create(['PerusahaanId' => 'GSB-GPK-', 'Deskripsi' => 'The offering letter is accompanied by a product image, specifications and warranty status of the product']);
+
         Workflow::get()->each->delete();
         Workflow::create(['CodeId' => 'ST', 'Deskripsi' => 'Start']);
         Workflow::create(['CodeId' => 'DG', 'Deskripsi' => 'Document Goods']);
