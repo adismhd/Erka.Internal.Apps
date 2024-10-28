@@ -45,16 +45,19 @@ class RfqController extends Controller
         $itemGoodList = ItemGood::where('Regno', $id)->get();
         $rfq = Rfq::where('Regno', $id)->first();
 
+
         if($rfq == null){
             Rfq::create([
                 'Regno' => $id,
                 'PerusahaanId' => null
             ]);
+            
+            $tanggal = Carbon::now()->translatedFormat('l, d F Y');
         }
+
         $tempPerushaan = $rfq->PerusahaanId ?? "";
         $in = InstructionNote::where('PerusahaanId', $tempPerushaan)->get();
         $perusahaanDt = Perusahaan::where('Code', $tempPerushaan)->first();
-
         $tanggal = Carbon::parse($rfq->created_at)->translatedFormat('l, d F Y');
 
         return view('admin.rfqDetail', [

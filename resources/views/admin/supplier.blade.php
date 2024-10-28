@@ -16,7 +16,7 @@
                         <th scope="col">Regno</th>
                         <th scope="col">Author</th>
                         <th scope="col">Perusahaan</th>
-                        <th scope="col">Tipe Supplier</th>
+                        {{-- <th scope="col">Tipe Supplier</th> --}}
                         <th scope="col">Create At</th>
                         <th scope="col" style="text-align: center">#</th>
                     </tr>
@@ -28,7 +28,7 @@
                             <td>{{ $data->Regno }}</td>
                             <td>{{ isset($data->author->Nama) ?  $data->author->Nama  : '' }}</td>
                             <td>{{ isset($data->customers->Perusahaan) ?  $data->customers->Perusahaan  : '' }}</td>
-                            <td>{{ isset($data->supplier->KetSupplier->Deskripsi) ?  $data->supplier->KetSupplier->Deskripsi : '' }}</td>
+                            {{-- <td>{{ isset($data->supplier->KetSupplier->Deskripsi) ?  $data->supplier->KetSupplier->Deskripsi : '' }}</td> --}}
                             <td>{{ isset($data->created_at) ?  $data->created_at  : '' }}</td>
                             <td  style="text-align: center">
                                 <button onclick="OpenLink('{{ $data->Regno }}','{{ isset($data->Supplier->SupplierCode) ? $data->Supplier->SupplierCode : '' }}')" class="btn btn-sm btn-info"  style="border-radius: 15px" >Detail</button></td>
@@ -76,15 +76,18 @@
         console.log(regno);
         console.log(supplier);
         $("#inRegno").val(regno);
-        if (supplier == null || supplier == ""){
-            $('#mTambah').modal({
-                show: true,
-                backdrop: 'static'
-            });
-        }
-        else{
-            window.location.replace("DetailSupplier/"+regno);
-        }
+        
+        // if (supplier == null || supplier == ""){
+        //     $('#mTambah').modal({
+        //         show: true,
+        //         backdrop: 'static'
+        //     });
+        // }
+        // else{
+        //     window.location.replace("DetailSupplier/"+regno);
+        // }
+        
+        window.location.replace("DetailSupplier/"+regno);
     }
 </script>    
 @endsection

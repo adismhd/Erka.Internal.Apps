@@ -24,4 +24,9 @@ class ItemGood extends Model
     {
         return $this->hasmany(SupplierLink::class, 'ItemGoodsId', 'id');
     }
+    
+    public function SupplierPo()
+    {
+        return $this->hasmany(SupplierPo::class, 'ItemGoodsId', 'id');
+    }
 }

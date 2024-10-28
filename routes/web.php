@@ -71,3 +71,7 @@ Route::get('/DetailSupplier/{id}', [SupplierContoller::class, 'DetailSupplier'])
 Route::post('/SetSupplier', [SupplierContoller::class, 'SetSupplier']);
 Route::post('/AddSupplierLink', [SupplierContoller::class, 'AddSupplierLink']);
 Route::post('/DeleteSupplierLink', [SupplierContoller::class, 'DeleteSupplierLink']);
+Route::post('/AddSupplierPo', [SupplierContoller::class, 'AddSupplierPo']);
+Route::post('/DeleteSupplierPo', [SupplierContoller::class, 'DeleteSupplierPo']);
+Route::post('/CheckedSupplierLink', [SupplierContoller::class, 'CheckedSupplierLink']);
+Route::post('/CheckedSupplierPo', [SupplierContoller::class, 'CheckedSupplierPo']);

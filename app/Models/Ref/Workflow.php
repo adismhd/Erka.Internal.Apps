@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Ref;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RefSupplier extends Model
+class Workflow extends Model
 {
     use HasFactory;
 
-    protected $table = 'ref_supplier';
+    protected $table = 'ref_workflows';
 
     protected $fillable = [
         'CodeId',
         'Deskripsi'
     ];
+
 }

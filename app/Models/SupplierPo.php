@@ -4,25 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ref\RefTop;
 
-class SupplierLink extends Model
+class SupplierPo extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_supplier_link';
+    protected $table = 'tbl_supplier_po';
 
     protected $fillable = [
         'ItemGoodsId',
         'Supplier',
-        'Alamat',
         'Pic',
         'NoTelepon',
-        'Link',
+        'Email',
+        'Ppn',
+        'TermOfPayment',
+        'OngkosKirim',
         'Harga',
         'TotalHarga',
-        'Ppn',
         'Keterangan',
-        'OngkosKirim',
         'Checked'
     ];
+    
+    public function Top()
+    {
+        return $this->hasone(RefTop::class, 'CodeId', 'TermOfPayment');
+    }
 }
