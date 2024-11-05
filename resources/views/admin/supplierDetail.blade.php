@@ -128,7 +128,7 @@
                                                     <td style="white-space: nowrap;">{{ $dataLink->Pic }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->NoTelepon }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->Top->Deskripsi }}</td>
-                                                    <td style="white-space: nowrap;">{{ $dataLink->Ppn }}</td>
+                                                    <td style="white-space: nowrap;">{{ $dataLink->Ppn == 1 ? 'Ya' : 'Tidak' }}</td>
                                                     <td style="white-space: nowrap;">Rp. {{ $dataLink->Harga }}</td>
                                                     <td style="white-space: nowrap;">Rp. {{ $dataLink->TotalHarga }}</td>
                                                     <td style="white-space: nowrap; text-align: center;">
@@ -155,6 +155,17 @@
                         @endif
                     @endforeach
                 </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <div class="card" style="border-radius: 25px">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr><td>Total Order Value Exclude Ppn</td><td>:</td><td>{{ $totalHarga }}</td></tr>
+                <tr><td>Total Order Value Include Ppn</td><td>:</td><td>{{ $totalHargaPpn }}</td></tr>
             </table>
         </div>
     </div>
@@ -338,7 +349,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label>Keterangan <i style="color: crimson">*</i></label>
-                        <textarea type="text" class="form-control" name="Keterangan" id="isKeterangan" required></textarea>
+                        <textarea type="text" class="form-control" name="Keterangan" id="isKeteranganPo" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -375,6 +386,39 @@
     </div>
 </div>
 
+{{-- Modal Next Stage --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mNext">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/NextStage" method="post">
+                @csrf
+                <input type="text" value="{{ $supplierDt->Regno }}" name="Regno" hidden />
+                <input type="text" value="PL" name="Next" hidden />
+
+                <div class="modal-header">
+                    {{-- <h5 class="modal-title">Hapus Data</h5> --}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p style="color: black">Apakah anda yakin akan melanjutkan data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ya</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+@if($wfApp->WorkflowCurrentCodeId == 'SW')
+    <div class="alert btn-primary mt-3" style="border-radius: 25px; text-align: center" onclick="ValidateData()">
+        <a href="#">Lanjutkan Data Ke Plan</a>
+    </div>
+@endif
+
 <script type="text/javascript">
     function SmTambahSupplier(id){
         $("#isIdItem").val(id);
@@ -409,7 +453,7 @@
         $("#isTelepon").val("");
         $("#isLink").val("");
         $("#isHarga").val("");
-        $("#isPpn").val("");
+        $("#isPpn").val("11");
         $("#isOngkos").val("");
         $("#isKeterangan").val("");
 
@@ -477,7 +521,7 @@
     }
     
     function SmEditSupplierPo(idItem, id, sup, pic, tlp, email, ppn, top, ongkos, harga, ket){
-        //$("#isIdItem").val(id);
+        $("#isIdItemPo").val(idItem);
         $("#isPoId").val(id);
         $("#isPoSupplier").val(sup);
         $("#isPoPic").val(pic);
@@ -487,7 +531,7 @@
         $("#isPoTop").val(top);
         $("#isPoHarga").val(harga);
         $("#isPoOngkos").val(ongkos);
-        $("#isKeterangan").val(ket);
+        $("#isKeteranganPo").val(ket);
 
         $('#mtPoSupplier').modal({
             show: true,
@@ -562,6 +606,46 @@
             }
         });
     }
+
+    function ValidateData(){
+        //const regno = $("#dtId").val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        console.log('1');
+
+        ShowModalNextStage();
+        // $.ajax({
+        //     type:'GET',
+        //     url: "ValidateRfq/"+regno,
+        //     cache:false,
+        //     contentType: false,
+        //     processData: false,
+        //     success: (Dt, textStatus, jqXHR) => {
+        //         console.log(Dt);
+        //         if (Dt == false) {
+        //             alert("Lengkapi Semua Data!");
+        //         }
+        //         else {
+        //             ShowModalNextStage()
+        //         }
+        //     },
+        //     error: function(data){
+        //         console.log(data);
+        //     }
+        // });
+    }
+    
+    function ShowModalNextStage(){
+        $('#mNext').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
 </script>   
 
 @endsection

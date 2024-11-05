@@ -76,14 +76,48 @@ class SupplierContoller extends Controller
         
         $supplierList = RefSupplier::get();
         $topList = RefTop::get();
+        $wf = WorkflowApplication::where('Regno', $id)->first();
+
+        $totalSupplierLink = 0; 
+        $totalSupplierLinkPpn = 0; 
+        $totalSupplierPo = 0;
+        $totalSupplierPoPpn = 0;
+
+        foreach ($itemGood as $itemGoods) 
+        { 
+            $supLink = SupplierLink::where('ItemGoodsId', $itemGoods->id)->where('Checked', true)->get();
+            $supPo = SupplierPo::where('ItemGoodsId', $itemGoods->id)->where('Checked', true)->get();
+
+            foreach ($supLink as $supLinks) 
+            { 
+                $totalSupplierLink += $supLinks->Harga;
+                $totalSupplierLinkPpn += ($supLinks->Harga + ($supLinks->Harga * ($supLinks->Ppn / 100)));
+            }
+            
+            foreach ($supPo as $supPos) 
+            { 
+                $totalSupplierPo += $supPos->Harga;
+                if ($supPos->Ppn == '1' ){
+                    $totalSupplierPoPpn += ($supPos->Harga + ($supPos->Harga * 0.11));
+                }
+            }
+        }
         
+        $totalHarga = $totalSupplierLink + $totalSupplierPo;
+        $totalHargaPpn = $totalSupplierLinkPpn + $totalSupplierPoPpn;
+
+        //dd($totalHargaPpn);
+
         return view('admin.supplierDetail', [
             "title" => "Supplier",
             "supplierDt" => $supplier,
             "itemGoodDt" => $itemGood,
             "dokumenGoodDt" => $dokumenGood,
             "supplierList" => $supplierList,
-            "topList" => $topList
+            "topList" => $topList,
+            "totalHarga" => $totalHarga,
+            "totalHargaPpn" => $totalHargaPpn,
+            "wfApp" => $wf
         ]);
     }
 
@@ -93,7 +127,7 @@ class SupplierContoller extends Controller
         $data = SupplierLink::where('ItemGoodsId', $request->Id)->first();
 
         $totalHarga = $request->Harga * $dataItem->Qty;
-        $hargaPpn = $totalHarga * $request->Ppn;
+        $hargaPpn = $totalHarga * ($request->Ppn / 100);
         $totalHargaPpn = $totalHarga + $hargaPpn;
 
         if ($data == null){
@@ -142,11 +176,12 @@ class SupplierContoller extends Controller
 
     public function AddSupplierPo(Request $request)
     {
+        //dd($request->Id);
         $dataItem = ItemGood::where('id', $request->IdItem)->first();
-        $data = SupplierPo::where('ItemGoodsId', $request->Id)->first();
+        $data = SupplierPo::where('id', $request->Id)->first();
 
         $totalHarga = $request->Harga * $dataItem->Qty;
-        $hargaPpn = $totalHarga;
+        $hargaPpn = 0;
         if ($request->Ppn == '1'){
             $hargaPpn = $totalHarga * 0.11;
         }        
@@ -180,8 +215,7 @@ class SupplierContoller extends Controller
                 'OngkosKirim' => $request->Ongkos,
                 'Harga' => $request->Harga,
                 'Keterangan' => $request->Keterangan,
-                'TotalHarga' => $totalHargaPpn,
-                'Checked' => '0'
+                'TotalHarga' => $totalHargaPpn
             ]);
         }
 
