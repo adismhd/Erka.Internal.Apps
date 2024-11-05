@@ -13,10 +13,12 @@ class DocumentGoods extends Model
 
     protected $fillable = [
         'Regno',
+        'SourceDocument',
         'PicCustomerId',
         'PicRecipientId',
         'AlamatInvoiceId',
         'AlamatDeliveryId',
+        'RecipientEmail',
         'EstimasiTime',
         'EstimasiDate'
     ];
