@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tbl_rfq', function (Blueprint $table) {
             $table->id();
             $table->string('Regno');
             $table->string('PerusahaanId')->nullable();
+            $table->string('SupplierCompany')->nullable();
+            $table->string('SupplierNPWP')->nullable();
             $table->timestamps();
         });
         
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tbl_rfq');

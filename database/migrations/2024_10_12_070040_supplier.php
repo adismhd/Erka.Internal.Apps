@@ -34,6 +34,7 @@ return new class extends Migration
             $table->double('TotalHarga')->nullable();
             $table->string('Ppn')->nullable();
             $table->string('Keterangan')->nullable();
+            $table->double('DeliveryFee')->nullable();
             $table->timestamps();
         });
     }

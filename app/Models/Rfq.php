@@ -13,6 +13,8 @@ class Rfq extends Model
 
     protected $fillable = [
         'Regno',
-        'PerusahaanId'
+        'PerusahaanId',
+        'SupplierCompany',
+        'SupplierNPWP'
     ];
 }
