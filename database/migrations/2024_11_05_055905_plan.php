@@ -23,8 +23,13 @@ return new class extends Migration
             $table->string('SupplierCode')->nullable();
             $table->string('SupplierId')->nullable();
             $table->double('Harga')->nullable();
-            $table->double('OngkosKirim')->nullable();
             $table->double('TotalHarga')->nullable();
+            $table->double('Profit')->nullable();
+            $table->double('TotalProfit')->nullable();
+            $table->double('Discount')->nullable();
+            $table->double('HargaDiscount')->nullable();
+            $table->double('TotalHargaDiscount')->nullable();
+            $table->double('OngkosKirim')->nullable();
             $table->integer('Ppn')->nullable();
             $table->integer('Qty')->nullable();
             $table->timestamps();

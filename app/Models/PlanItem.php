@@ -17,8 +17,13 @@ class PlanItem extends Model
         'SupplierCode',
         'SupplierId',
         'Harga',
-        'OngkosKirim',
         'TotalHarga',
+        'Profit',
+        'TotalProfit',
+        'Discount',
+        'HargaDiscount',
+        'TotalHargaDiscount',
+        'OngkosKirim',
         'Ppn',
         'Qty'
     ];

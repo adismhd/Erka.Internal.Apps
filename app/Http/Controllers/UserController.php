@@ -22,8 +22,9 @@ class UserController extends Controller
                 "loginstatus" => "false"
             ]);
         }
-        
-        $menus = Menu::where('role', $user->role)->get();
+
+        $menus = Menu::where('role', $user->role)->orderBy('Order')->get();
+
         //dd($menus);
 
         if(!Hash::check($request->Password, $user->password)){

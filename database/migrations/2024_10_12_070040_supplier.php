@@ -41,6 +41,7 @@ return new class extends Migration
             $table->double('OngkosKirim')->nullable();
             $table->double('Harga')->nullable();
             $table->double('TotalHarga')->nullable();
+            $table->double('TotalHargaPpn')->nullable();
             $table->string('Keterangan')->nullable();
             $table->string('Checked')->nullable();
             $table->timestamps();
@@ -58,6 +59,7 @@ return new class extends Migration
             $table->double('OngkosKirim')->nullable();
             $table->double('Harga')->nullable();
             $table->double('TotalHarga')->nullable();
+            $table->double('TotalHargaPpn')->nullable();
             $table->string('Keterangan')->nullable();
             $table->string('Checked')->nullable();
             $table->double('DeliveryFee')->nullable();

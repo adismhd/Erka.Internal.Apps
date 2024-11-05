@@ -20,6 +20,7 @@ class SupplierLink extends Model
         'Link',
         'Harga',
         'TotalHarga',
+        'TotalHargaPpn',
         'Ppn',
         'Keterangan',
         'OngkosKirim',

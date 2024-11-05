@@ -23,6 +23,7 @@ class SupplierPo extends Model
         'OngkosKirim',
         'Harga',
         'TotalHarga',
+        'TotalHargaPpn',
         'Keterangan',
         'Checked'
     ];

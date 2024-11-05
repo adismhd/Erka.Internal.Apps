@@ -46,7 +46,7 @@ class PlanController extends Controller
         $wf = WorkflowApplication::where('Regno', $id)->first();
         $plan = Plan::where('Regno', $id)->first();
         if($plan == null){
-            $supplier = Plan::create([
+            $plan = Plan::create([
                 'Regno' => $id
             ]);
         }
@@ -62,28 +62,46 @@ class PlanController extends Controller
             $supPo = SupplierPo::where('ItemGoodsId', $item->id)->where('Checked', true)->first();
 
             if ($supLink != null){
+                $profit = $supLink->Harga + ($supLink->Harga * ($plan->ExpectedProfit / 100));
+                $Discount = $supLink->Harga * ($plan->Discount / 100);
+                $HargaDiscount = $supLink->Harga - $Discount;
+
                 PlanItem::create([
                     'Regno' => $id,
                     'ItemGoodsId' => $item->id,
                     'SupplierCode' => '102',
                     'SupplierId' => $supLink->id,
                     'Harga' => $supLink->Harga,
-                    'OngkosKirim' => $supLink->OngkosKirim,
                     'TotalHarga' => $supLink->TotalHarga,
+                    'Profit' => $profit,
+                    'TotalProfit' => $profit * $item->Qty,
+                    'Discount' => $Discount,
+                    'HargaDiscount' => $HargaDiscount,
+                    'TotalHargaDiscount' => $HargaDiscount * $item->Qty,
+                    'OngkosKirim' => $supLink->OngkosKirim,
                     'Ppn' => $supLink->Ppn,
                     'Qty' => $item->Qty,
                 ]);
             }
             
             if ($supPo != null){
+                $profit = $supPo->Harga + ($supPo->Harga * ($plan->ExpectedProfit / 100));
+                $Discount = $supPo->Harga * ($plan->Discount / 100);
+                $HargaDiscount = $supPo->Harga - $Discount;
+
                 PlanItem::create([
                     'Regno' => $id,
                     'ItemGoodsId' => $item->id,
                     'SupplierCode' => '101',
                     'SupplierId' => $supPo->id,
                     'Harga' => $supPo->Harga,
-                    'OngkosKirim' => $supPo->OngkosKirim,
                     'TotalHarga' => $supPo->TotalHarga,
+                    'Profit' => $profit,
+                    'TotalProfit' => $profit * $item->Qty,
+                    'Discount' => $Discount,
+                    'HargaDiscount' => $HargaDiscount,
+                    'TotalHargaDiscount' => $HargaDiscount * $item->Qty,
+                    'OngkosKirim' => $supPo->OngkosKirim,
                     'Ppn' => $supPo->Ppn == '1' ? '11' : '0' ,
                     'Qty' => $item->Qty,
                 ]);

@@ -74,8 +74,8 @@
                                                     </td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->Supplier }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->Ppn }} %</td>
-                                                    <td style="white-space: nowrap;">Rp. {{ $dataLink->Harga }}</td>
-                                                    <td style="white-space: nowrap;">Rp. {{ $dataLink->TotalHarga }}</td>
+                                                    <td style="white-space: nowrap;">Rp. {{ number_format($dataLink->Harga) }}</td>
+                                                    <td style="white-space: nowrap;">Rp. {{ number_format($dataLink->TotalHarga) }}</td>
                                                     <td style="white-space: nowrap; text-align: center;">
                                                         <a href="{{ $dataLink->Link }}" class="btn btn-sm btn-outline-primary">Link</a>
                                                         <button class="btn btn-sm btn-info" onclick="SmEditSupplier('{{ $data->id }}', 
@@ -127,10 +127,10 @@
                                                     <td style="white-space: nowrap;">{{ $dataLink->Supplier }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->Pic }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->NoTelepon }}</td>
-                                                    <td style="white-space: nowrap;">{{ $dataLink->Top->Deskripsi }}</td>
+                                                    <td>{{ $dataLink->Top->Deskripsi }}</td>
                                                     <td style="white-space: nowrap;">{{ $dataLink->Ppn == 1 ? 'Ya' : 'Tidak' }}</td>
-                                                    <td style="white-space: nowrap;">Rp. {{ $dataLink->Harga }}</td>
-                                                    <td style="white-space: nowrap;">Rp. {{ $dataLink->TotalHarga }}</td>
+                                                    <td style="white-space: nowrap;">Rp. {{ number_format($dataLink->Harga) }}</td>
+                                                    <td style="white-space: nowrap;">Rp. {{ number_format($dataLink->TotalHarga) }}</td>
                                                     <td style="white-space: nowrap; text-align: center;">
                                                         <button class="btn btn-sm btn-info" onclick="SmEditSupplierPo('{{ $data->id }}', 
                                                             '{{ $dataLink->id }}',
@@ -164,8 +164,8 @@
     <div class="card" style="border-radius: 25px">
         <div class="card-body">
             <table class="table table-striped">
-                <tr><td>Total Order Value Exclude Ppn</td><td>:</td><td>{{ $totalHarga }}</td></tr>
-                <tr><td>Total Order Value Include Ppn</td><td>:</td><td>{{ $totalHargaPpn }}</td></tr>
+                <tr><td>Total Order Value Exclude Ppn</td><td>:</td><td>{{ number_format($totalHarga) }}</td></tr>
+                <tr><td>Total Order Value Include Ppn</td><td>:</td><td>{{ number_format($totalHargaPpn) }}</td></tr>
             </table>
         </div>
     </div>

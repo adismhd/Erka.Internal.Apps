@@ -44,10 +44,11 @@ class DocumentGoodsController extends Controller
 
         $todayCount = Aplikasi::whereDate('created_at', Carbon::today())->count() + 1;
         $prefix = $request->PerusahaanData;
+        $day = date('d');
         $month = date('m');
         $year = date('Y');
-        $number = str_pad($todayCount, 5, '0', STR_PAD_LEFT);
-        $regno = "{$prefix}-{$month}-{$year}-{$number}";
+        $number = str_pad($todayCount, 4, '0', STR_PAD_LEFT);
+        $regno = "{$prefix}-{$day}{$month}{$year}-{$number}";
 
         Aplikasi::create([
             'Regno' => $regno,
@@ -72,7 +73,8 @@ class DocumentGoodsController extends Controller
         ]);
 
         DocumentGoods::create([
-            'Regno' => $regno
+            'Regno' => $regno,
+            'SourceDocument' => 'DG'.$regno,
         ]);
         
 
@@ -114,6 +116,7 @@ class DocumentGoodsController extends Controller
         DocumentGoods::where('id', $request->Id)->update([
             'PicRecipientId' => $request->Pic,
             'AlamatDeliveryId' => $request->Alamat,
+            'RecipientEmail' => $request->Email,
             'EstimasiTime' => $request->eTime,
             'EstimasiDate' => $request->eDate
         ]);  

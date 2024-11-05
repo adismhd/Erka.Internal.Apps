@@ -49,7 +49,8 @@
                             @endif
                         </tr>
                         <tr>
-                            <td style="white-space: nowrap; width: 35%">Source Docs </td style="width: 1%"><td> : </td><td></td>
+                            <td style="white-space: nowrap; width: 35%">Source Docs </td style="width: 1%"><td> : </td>
+                            <td>{{ isset($dgDt->SourceDocument) ? $dgDt->SourceDocument : "" }}</td>
                         </tr>
                         <tr>
                             <td style="white-space: nowrap; width: 35%">Invoicing To</td style="width: 1%"><td> : </td>
@@ -92,7 +93,8 @@
                             @endif
                         </tr>
                         <tr>
-                            <td style="white-space: nowrap; width: 35%">Email</td style="width: 1%"><td> : </td><td></td>
+                            <td style="white-space: nowrap; width: 35%">Email</td style="width: 1%"><td> : </td>
+                            <td>{{ isset($dgDt->RecipientEmail) ? $dgDt->RecipientEmail : "" }}</td>
                         </tr>
                         <tr>
                             <td style="white-space: nowrap; width: 35%">Estitmated Time</td style="width: 1%"><td> : </td>
@@ -251,6 +253,10 @@
                         </select>
                     </div>
                     <div class="col-md-12 mb-3">
+                        <label>Email <i style="color: crimson">*</i></label>
+                        <input type="email" class="form-control" name="Email" id="iEEmail">
+                    </div>
+                    <div class="col-md-12 mb-3">
                         <label>Estitmated Time <i style="color: crimson">*</i></label>
                         <input type="time" class="form-control" name="eTime" id="iET">
                     </div>
@@ -366,8 +372,8 @@
 </div>
 
 @if($wfApp->WorkflowCurrentCodeId == 'DG')
-    <div class="alert alert-primary mt-3" style="border-radius: 25px">
-        <a href="#" onclick="showModalNextStage()">Lanjutkan Data Ke Request For Quotation</a>
+    <div class="alert btn-primary mt-3" style="border-radius: 25px; text-align: center" onclick="showModalNextStage()">
+        <a href="#">Lanjutkan Data Ke Request For Quotation</a>
     </div>
 @endif
 
@@ -377,6 +383,7 @@
 <input type="hidden" id="riAlamat" value="{{ $dgDt->AlamatDeliveryId }}" >
 <input type="hidden" id="riET" value="{{ $dgDt->EstimasiTime }}" >
 <input type="hidden" id="riED" value="{{ $dgDt->EstimasiDate }}" >
+<input type="hidden" id="riEEmail" value="{{ $dgDt->RecipientEmail }}" >
 
 <script type="text/javascript">
     function smEditCI(){
@@ -396,11 +403,13 @@
         var alamat = $("#riAlamat").val();
         var et = $("#riET").val();
         var ed = $("#riED").val();
+        var ed = $("#riEEmail").val();
         $("#sRiPic").val(pic);
         $("#sRiAlamat").val(alamat);
         $("#iET").val(et);
         $("#iED").val(ed);
-
+        $("#iEEmail").val(ed);
+        
         $('#mtRI').modal({
             show: true,
             backdrop: 'static'

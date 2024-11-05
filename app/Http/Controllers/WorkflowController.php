@@ -28,6 +28,7 @@ class WorkflowController extends Controller
             'WorkflowCodeId' => $request->Next
         ]);  
 
-        return back();
+        //return back();
+        return redirect('/HomeAdmin');
     }
 }

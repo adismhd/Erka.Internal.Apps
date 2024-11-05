@@ -94,8 +94,8 @@
     </div>
 </div>
 
-<div class="alert alert-danger mt-3" style="border-radius: 25px">
-    <a href="#" onclick="showModalHapus()">Hapus Data Customer</a>
+<div class="alert btn-danger mt-3" style="border-radius: 25px; text-align: center" onclick="showModalHapus()">
+    <a href="#" >Hapus Data Customer</a>
 </div>
 
 {{-- Modal Edit --}}

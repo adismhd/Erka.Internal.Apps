@@ -55,14 +55,14 @@
                 <h5>Supplier Information </h5>
             </div>
             <div class="card-body">
-                <table>
+                <table style="width: 100%">
                     <tr>
                         <td>Company</td>
-                        <td>&nbsp; : </td>
+                        <td>&nbsp; : {{ $rfq->SupplierCompany  }}</td>
                     </tr>
                     <tr>
                         <td>NPWP</td>
-                        <td>&nbsp; : </td>
+                        <td>&nbsp; : {{ $rfq->SupplierNPWP  }}</td>
                     </tr>
                     <tr>
                         <td>PIC</td>
@@ -74,11 +74,15 @@
                     </tr>
                     <tr>
                         <td>Source Docs</td>
-                        <td>&nbsp; : </td>
+                        <td>&nbsp; : {{ $rfq->SourceDocument  }}</td>
                     </tr>
                     <tr>
                         <td>Delivery To</td>
                         <td>&nbsp; : {{ $dgDt->AlamatDelivery->Alamat }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="text-align: right"><button class="btn btn-info btn-sm" onclick="ShowModalSupplierInformation()">Edit</button></td>
                     </tr>
                 </table>
             </div>
@@ -140,6 +144,39 @@
 </div>
 
 {{-- Modal Next Stage --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="mSI">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/SaveSupplierInformation" method="post">
+                @csrf
+                <input type="text" value="{{ $aplikasiDt->Regno }}" name="Regno" hidden />
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Supplier Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label>Company <i style="color: crimson">*</i></label>
+                        <input type="text" class="form-control" name="Company" value="{{ $rfq->SupplierCompany }}" required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label>NPWP <i style="color: crimson">*</i></label>
+                        <input type="number" class="form-control" name="Npwp" value="{{ $rfq->SupplierNPWP }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+{{-- Modal Next Stage --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="mNext">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -167,8 +204,8 @@
 </div>
 
 @if($wfApp->WorkflowCurrentCodeId == 'RFQ')
-    <div class="alert alert-primary mt-3" style="border-radius: 25px">
-        <a href="#" onclick="ValidateData()">Lanjutkan Data Ke Supplier</a>
+    <div class="alert btn-primary mt-3" style="border-radius: 25px; text-align: center" onclick="ValidateData()">
+        <a href="#">Lanjutkan Data Ke Supplier</a>
     </div>
 @endif
 
@@ -205,6 +242,13 @@
         });
     }
 
+    function ShowModalSupplierInformation(){
+        $('#mSI').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    
     function ShowModalNextStage(){
         $('#mNext').modal({
             show: true,

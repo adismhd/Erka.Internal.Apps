@@ -44,21 +44,23 @@ class RfqController extends Controller
         $dg = DocumentGoods::where('Regno', $id)->first();
         $itemGoodList = ItemGood::where('Regno', $id)->get();
         $rfq = Rfq::where('Regno', $id)->first();
-
+        $tanggal = Carbon::now()->translatedFormat('l, d F Y');
 
         if($rfq == null){
-            Rfq::create([
+            $rfq = Rfq::create([
                 'Regno' => $id,
                 'PerusahaanId' => null
             ]);
-            
-            $tanggal = Carbon::now()->translatedFormat('l, d F Y');
+        }
+        else
+        {
+            $tanggal = Carbon::parse($rfq->created_at)->translatedFormat('l, d F Y');
         }
 
         $tempPerushaan = $rfq->PerusahaanId ?? "";
+        //dd($tempPerushaan);
         $in = InstructionNote::where('PerusahaanId', $tempPerushaan)->get();
         $perusahaanDt = Perusahaan::where('Code', $tempPerushaan)->first();
-        $tanggal = Carbon::parse($rfq->created_at)->translatedFormat('l, d F Y');
 
         return view('admin.rfqDetail', [
             "title" => "RFQ",
@@ -77,7 +79,18 @@ class RfqController extends Controller
     public function SavePerushaan(Request $request)
     {
         Rfq::where('Regno', $request->Regno)->update([
-            'PerusahaanId' => $request->ptInduk
+            'PerusahaanId' => $request->ptInduk,
+            'SourceDocument' => $request->ptInduk . $request->Regno
+        ]);
+
+        return back();
+    }
+
+    public function SaveSupplierInformation(Request $request)
+    {
+        Rfq::where('Regno', $request->Regno)->update([
+            'SupplierCompany' => $request->Company,
+            'SupplierNPWP' => $request->Npwp
         ]);
 
         return back();

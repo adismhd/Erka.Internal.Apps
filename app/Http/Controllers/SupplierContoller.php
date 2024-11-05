@@ -139,7 +139,8 @@ class SupplierContoller extends Controller
                 'NoTelepon' => $request->Telepon,
                 'Link' => $request->Link,
                 'Harga' => $request->Harga,
-                'TotalHarga' => $totalHargaPpn,
+                'TotalHarga' => $totalHarga,
+                'TotalHargaPpn' => $totalHargaPpn,
                 'Ppn' => $request->Ppn,
                 'Keterangan' => $request->Keterangan,
                 'OngkosKirim' => $request->Ongkos,
@@ -155,11 +156,11 @@ class SupplierContoller extends Controller
                 'NoTelepon' => $request->Telepon,
                 'Link' => $request->Link,
                 'Harga' => $request->Harga,
-                'TotalHarga' => $totalHargaPpn,
+                'TotalHarga' => $totalHarga,
+                'TotalHargaPpn' => $totalHargaPpn,
                 'Ppn' => $request->Ppn,
                 'Keterangan' => $request->Keterangan,
-                'OngkosKirim' => $request->Ongkos,
-                'Checked' => '0'
+                'OngkosKirim' => $request->Ongkos
             ]);
         }
 
@@ -199,7 +200,8 @@ class SupplierContoller extends Controller
                 'OngkosKirim' => $request->Ongkos,
                 'Harga' => $request->Harga,
                 'Keterangan' => $request->Keterangan,
-                'TotalHarga' => $totalHargaPpn,
+                'TotalHarga' => $totalHarga,
+                'TotalHargaPpn' => $totalHargaPpn,
                 'Checked' => '0'
             ]);
         }
@@ -215,7 +217,8 @@ class SupplierContoller extends Controller
                 'OngkosKirim' => $request->Ongkos,
                 'Harga' => $request->Harga,
                 'Keterangan' => $request->Keterangan,
-                'TotalHarga' => $totalHargaPpn
+                'TotalHarga' => $totalHarga,
+                'TotalHargaPpn' => $totalHargaPpn
             ]);
         }
 

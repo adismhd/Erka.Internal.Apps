@@ -60,11 +60,16 @@ class ParameterController extends Controller
         $perusahaan = Perusahaan::where('id', $request->Id)->first();
         //dd($request);
         if ($perusahaan != null) {
+            $Code = $perusahaan->Code;
             Perusahaan::where('id', $request->Id)->update([
                 'Code' => $request->Code,
                 'Nama' => $request->Nama,
                 'Deskripsi' => $request->Deskripsi,
                 'Alamat' => $request->Alamat
+            ]);
+
+            InstructionNote::where('PerusahaanId', $Code)->update([
+                'PerusahaanId' => $request->Code
             ]);
         }
         else {

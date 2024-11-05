@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('Regno');
             $table->string('PerusahaanId')->nullable();
+            $table->string('SourceDocument')->nullable();
             $table->string('SupplierCompany')->nullable();
             $table->string('SupplierNPWP')->nullable();
             $table->timestamps();
