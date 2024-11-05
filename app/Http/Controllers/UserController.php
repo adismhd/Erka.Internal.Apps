@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Menu;
+use App\Models\Ref\Menu;
 use Hash;
 use Session;
 use Carbon\Carbon;

@@ -8,6 +8,7 @@ use App\Http\Controllers\DocumentGoodsController;
 use App\Http\Controllers\RfqController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\SupplierContoller;
+use App\Http\Controllers\PlanController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -71,3 +72,14 @@ Route::get('/DetailSupplier/{id}', [SupplierContoller::class, 'DetailSupplier'])
 Route::post('/SetSupplier', [SupplierContoller::class, 'SetSupplier']);
 Route::post('/AddSupplierLink', [SupplierContoller::class, 'AddSupplierLink']);
 Route::post('/DeleteSupplierLink', [SupplierContoller::class, 'DeleteSupplierLink']);
+Route::post('/AddSupplierPo', [SupplierContoller::class, 'AddSupplierPo']);
+Route::post('/DeleteSupplierPo', [SupplierContoller::class, 'DeleteSupplierPo']);
+Route::post('/CheckedSupplierLink', [SupplierContoller::class, 'CheckedSupplierLink']);
+Route::post('/CheckedSupplierPo', [SupplierContoller::class, 'CheckedSupplierPo']);
+
+//Plan
+Route::get('/Plan', [PlanController::class, 'GetListData']);
+Route::get('/DetailPlan/{id}', [PlanController::class, 'DetailPlan']);
+Route::post('/SavePlan', [PlanController::class, 'SavePlan']);
+
+
