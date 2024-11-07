@@ -25,7 +25,10 @@ class PlanItem extends Model
         'TotalHargaDiscount',
         'OngkosKirim',
         'Ppn',
-        'Qty'
+        'Qty',
+        'CustomCaseVat',
+        'Vat',
+        'TotalVatItem'
     ];
     
     public function IG()

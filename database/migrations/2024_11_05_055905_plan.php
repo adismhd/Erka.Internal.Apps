@@ -32,6 +32,18 @@ return new class extends Migration
             $table->double('OngkosKirim')->nullable();
             $table->integer('Ppn')->nullable();
             $table->integer('Qty')->nullable();
+            $table->double('CustomCaseVat')->nullable();
+            $table->double('Vat')->nullable();
+            $table->double('TotalVatItem')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('tbl_plan_detail', function (Blueprint $table) {
+            $table->id();
+            $table->string('Regno');
+            $table->string('DetailCode')->nullable();
+            $table->string('Deskripsi')->nullable();
+            $table->double('Nilai')->nullable();
             $table->timestamps();
         });
 
@@ -41,5 +53,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('tbl_plan');
         Schema::dropIfExists('tbl_item_plan');
+        Schema::dropIfExists('tbl_plan_detail');
     }
 };

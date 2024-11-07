@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
         
         Menu::get()->each->delete();
         Menu::create(['Nama' => 'Beranda', 'Deskripsi' => 'Beranda', 'Role' => 'superadmin', 'Order' => 1, 'Link' => '/HomeAdmin', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'Glosarium', 'Deskripsi' => 'Glosarium', 'Role' => 'superadmin', 'Order' => 3, 'Link' => '/Glosarium', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'DG', 'Deskripsi' => 'Document Goods', 'Role' => 'superadmin', 'Order' => 4, 'Link' => '/DocumentGoods', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'RFQ', 'Deskripsi' => 'Request For Quotation', 'Role' => 'superadmin', 'Order' => 5, 'Link' => '/RFQ', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'Supplier', 'Deskripsi' => 'Supplier', 'Role' => 'superadmin', 'Order' => 6, 'Link' => '/Supplier', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'Plan', 'Deskripsi' => 'Plan', 'Role' => 'superadmin', 'Order' => 7, 'Link' => '/Plan', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
-        Menu::create(['Nama' => 'Parameter', 'Deskripsi' => 'Parameter', 'Role' => 'superadmin', 'Order' => 2, 'Link' => '/Parameter', 'Icon' => 'fa-solid fa-house', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Glosarium', 'Deskripsi' => 'Glosarium', 'Role' => 'superadmin', 'Order' => 3, 'Link' => '/Glosarium', 'Icon' => 'fa-solid fa-rectangle-list', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'DG', 'Deskripsi' => 'Document Goods', 'Role' => 'superadmin', 'Order' => 4, 'Link' => '/DocumentGoods', 'Icon' => 'fa-solid fa-truck-ramp-box', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'RFQ', 'Deskripsi' => 'Request For Quotation', 'Role' => 'superadmin', 'Order' => 5, 'Link' => '/RFQ', 'Icon' => 'fa-solid fa-circle-plus', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Supplier', 'Deskripsi' => 'Supplier', 'Role' => 'superadmin', 'Order' => 6, 'Link' => '/Supplier', 'Icon' => 'fa-solid fa-box', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Plan', 'Deskripsi' => 'Plan', 'Role' => 'superadmin', 'Order' => 7, 'Link' => '/Plan', 'Icon' => 'fa-solid fa-chart-simple', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
+        Menu::create(['Nama' => 'Parameter', 'Deskripsi' => 'Parameter', 'Role' => 'superadmin', 'Order' => 2, 'Link' => '/Parameter', 'Icon' => 'fa-solid fa-list', 'Module' => '1', 'ParentId' => null,'IsActive' => '1']);
 
         Author::get()->each->delete();
         Author::create(['Nama' => 'Kevin Kunta Adji', 'NoTelepon' => '085930170540', 'Jabatan' => 'Project Manager']);
