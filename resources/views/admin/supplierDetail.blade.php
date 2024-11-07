@@ -11,17 +11,17 @@
 </style>
 
 <div class="mt-4">
-    <h1>Supplier Link</h1>
+    <h1>Supplier</h1>
 </div>
 
 <div class="mt-4">
     <div class="card" style="border-radius: 25px">
         <div class="card-body">
-            <table>
-                <tr><td>Source Doc</td><td>:</td></tr>
-                <tr><td>Date Doc</td><td>:</td></tr>
-                <tr><td>Customer</td><td>:</td><td>&nbsp;{{ $supplierDt->created_at }}</td></tr>
-                <tr><td>Delivery</td><td>:</td><td>&nbsp;{{ $dokumenGoodDt->AlamatDelivery->Alamat }}</td></tr>
+            <table  style="width: 100%">
+                <tr><td style="width: 10%">Source Doc</td><td>: {{ $aplikasi->Regno }}</td></tr>
+                <tr><td>Date Doc</td><td>: {{ $supplierDt->created_at }}</td></tr>
+                <tr><td>Customer</td><td>: {{ $aplikasi->Customers->Perusahaan }}</td></tr>
+                <tr><td>Delivery</td><td>: {{ $dokumenGoodDt->AlamatDelivery->Alamat }}</td></tr>
             </table>
         </div>
     </div>

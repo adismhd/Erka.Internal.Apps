@@ -117,6 +117,7 @@ class SupplierContoller extends Controller
             "topList" => $topList,
             "totalHarga" => $totalHarga,
             "totalHargaPpn" => $totalHargaPpn,
+            "aplikasi" => $aplikasi,
             "wfApp" => $wf
         ]);
     }

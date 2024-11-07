@@ -1,0 +1,121 @@
+<html>
+<head>
+    <title>Request For Quotation</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+        }
+        .table-container table th, .table-container table td {
+            border: 1px solid #000;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .table-container table th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body style="color: #014751;">
+    <div class="container">
+        <div class="header">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 55px;">
+                        <img alt="Company Logo" height="50" width="50" src=""/>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <h1 style="font-size: 18px; margin: 0;">&ptInduk&</h1>
+                        <p style="font-size: 14px; margin: 0;">&ptAlamat&</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="">
+                        <h2 style="font-size: 24px; margin: 0;">Request For Quotation (&sourceDokumen&)</h2>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="content">
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Company</td>
+                                <td>&ptClient&</td>
+                            </tr>
+                            <tr>
+                                <td>PIC</td>
+                                <td>&pic&</td>
+                            </tr>
+                            <tr>
+                                <td>No. Hp</td>
+                                <td>&kontak&</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery To</td>
+                                <td>&alamatClient&</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Name of Goods &amp; Codes Series</th>
+                    <th>Specification</th>
+                    <th>QTY</th>
+                    <th>Unit</th>
+                    <th>Keterangan</th>
+                </tr>
+                &itemgoods&
+            </table>
+        </div>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 50%;">
+                    <div class="table-container">
+                        <table style="text-align: left;">
+                            <thead>
+                                <tr><th colspan="2">Instruction Note</th></tr>
+                            </thead>
+                            <tbody>
+                                &instruction&
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

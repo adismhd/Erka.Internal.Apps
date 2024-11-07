@@ -28,11 +28,11 @@ class GenerateController extends Controller
         $dompdf = new Dompdf();
 
         $aplikasi = Aplikasi::where('Regno', $request->Regno)->first();
-        $dokumen = RefTemplateDokumen::where('DokumenCode', 'DRFQ')->where('KeyId', $request->Perusahaan)->first();
-        $perusahaan = Perusahaan::where('Code', $request->Perusahaan)->first();
         $rfq = Rfq::where('Regno', $request->Regno)->first();
+        $dokumen = RefTemplateDokumen::where('DokumenCode', 'DRFQ')->where('KeyId', $rfq->PerusahaanId)->first();
+        $perusahaan = Perusahaan::where('Code', $rfq->PerusahaanId)->first();
         $dg = DocumentGoods::where('Regno', $request->Regno)->first();
-        $in = InstructionNote::where('PerusahaanId', $request->Perusahaan)->get();
+        $in = InstructionNote::where('PerusahaanId', $rfq->PerusahaanId)->get();
         $ig = ItemGood::where('Regno', $request->Regno)->get();
         $stringHTML = $dokumen->Html;
         
@@ -42,7 +42,7 @@ class GenerateController extends Controller
         $ptAlamat = $perusahaan->Alamat;
         $sourceDokumen = $rfq->SourceDocument;
         $date = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
-        $ptClient = $rfq->Company;
+        $ptClient = $rfq->SupplierCompany;
         $npwp = $rfq->SupplierNPWP;
         $pic = $dg->PicCustomer->Nama;
         $kontak = $dg->PicCustomer->NoTelepon;
@@ -55,7 +55,7 @@ class GenerateController extends Controller
         }
 
         foreach ($ig as $index => $data){
-            $itemgoods .= "<tr><td>".($index + 1)."</td><td>".$data->Nama."</td><td>".$data->Spesifikasi."</td><td>".$data->Qty."</td><td>".$data->Satuan."</td><td>".$data->Keterangan."</td></tr>";
+            $itemgoods .= "<tr style='text-align: left;'><td>".($index + 1)."</td><td>".$data->Nama."</td><td>".$data->Spesifikasi."</td><td>".$data->Qty."</td><td>".$data->Satuan."</td><td>".$data->Keterangan."</td></tr>";
         }
         
         $newString = str_replace("&logo&", $logo, $stringHTML);
