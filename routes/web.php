@@ -9,6 +9,7 @@ use App\Http\Controllers\RfqController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\SupplierContoller;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\GenerateController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -83,4 +84,5 @@ Route::get('/Plan', [PlanController::class, 'GetListData']);
 Route::get('/DetailPlan/{id}', [PlanController::class, 'DetailPlan']);
 Route::post('/SavePlan', [PlanController::class, 'SavePlan']);
 
-
+//Generate Doc
+Route::post('/GeneratePdfRfq', [GenerateController::class, 'GeneratePdfRfq']);

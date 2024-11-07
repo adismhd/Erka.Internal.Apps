@@ -203,9 +203,15 @@
     </div>
 </div>
 
-<div class="alert btn-info mt-3" style="border-radius: 25px; text-align: center" onclick="">
-    <a href="#"><i class="fa-regular fa-file"></i> &nbsp; Generate Dokumen Request For Quotation</a>
-</div>
+<form action="/GeneratePdfRfq" method="post" id="sGeneratePdf">
+    @csrf
+    <input type="text" value="{{ $aplikasiDt->Regno }}" name="Regno" hidden />
+    <input type="text" value="RKB" name="Perusahaan" hidden />
+
+    <div class="alert btn-info mt-3" style="border-radius: 25px; text-align: center" onclick="GeneratePdf()">
+        <a href="#"><i class="fa-regular fa-file"></i> &nbsp; Generate Dokumen Request For Quotation</a>
+    </div>        
+</form>
 
 @if($wfApp->WorkflowCurrentCodeId == 'RFQ')
     <div class="alert btn-primary mt-3" style="border-radius: 25px; text-align: center" onclick="ValidateData()">
@@ -265,5 +271,8 @@
         //alert(val);
     }
     
+    function GeneratePdf() {
+        document.getElementById('sGeneratePdf').submit();
+    }
 </script>    
 @endsection
